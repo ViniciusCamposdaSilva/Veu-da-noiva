@@ -1,0 +1,9 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Resources/StyleSheets/MainMenuStyle.uss?fileID=7433441132597879392&amp;guid=b63e461b8ca058f4b9d4aef55401d257&amp;type=3#MainMenuStyle" />
+    <ui:VisualElement name="Container" style="flex-grow: 1; margin-bottom: 10px; align-items: auto; justify-content: center;">
+        <ui:VisualElement name="Inventory" class="Inventory">
+            <ui:Label text="Label" name="InventoryHeader" class="InventoryHeader" />
+            <ui:VisualElement name="SlotContainer" class="SlotsContainer SlotContainer" style="align-self: auto; flex-direction: row;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

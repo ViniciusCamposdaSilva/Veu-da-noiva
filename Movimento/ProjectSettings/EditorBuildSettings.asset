@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/CenaDeMovimento.unity
+    path: Assets/Cenas/CenaDeMovimento.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: e5e8bda77e9d1944e881e1217242ce4d, type: 3}

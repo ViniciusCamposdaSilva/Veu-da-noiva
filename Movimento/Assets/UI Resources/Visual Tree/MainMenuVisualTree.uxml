@@ -1,0 +1,11 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/MainMenuStyle.uss?fileID=7433441132597879392&amp;guid=b63e461b8ca058f4b9d4aef55401d257&amp;type=3#MainMenuStyle" />
+    <ui:VisualElement name="Container" style="height: 480px; background-color: rgba(0, 0, 0, 0); background-image: none; transition-duration: 0.35s;">
+        <ui:VisualElement style="flex-grow: 0; border-top-width: 18px; border-right-width: 18px; border-bottom-width: 18px; border-left-width: 18px; flex-shrink: 0; align-self: center; width: 425px; height: 170px; margin-top: 40px; background-image: none; flex-direction: column-reverse;" />
+        <ui:GroupBox style="width: 40%; height: 30%; align-self: center;">
+            <ui:Button text="Iniciar" enabled="true" name="StartButton" class="button" style="scale: 1 1;" />
+            <ui:Button text="Opções" name="OptionsButton" class="button" style="scale: 1 1;" />
+            <ui:Button text="Voltar para o Desktop" name="RToDesktopButton" class="button" style="scale: 1 1;" />
+        </ui:GroupBox>
+    </ui:VisualElement>
+</ui:UXML>
