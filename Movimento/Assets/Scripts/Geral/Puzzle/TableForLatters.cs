@@ -9,11 +9,9 @@ public class TableForLatters : MonoBehaviour, INterfaceInteractor
     public PuzzleLetter puzzleLetter;
 
 
-
-
     public bool Interact(Interactor interactor)
     {
-        if (puzzleLetter.isActive == false)
+        if (puzzleLetter.puzzleAtivado == false)
         {
 
             if (Letters.quantidadeAtualCartas < Letters.quantidadeTotalCartas)
@@ -24,7 +22,7 @@ public class TableForLatters : MonoBehaviour, INterfaceInteractor
             {
                 CameraPuzzle cameraPuzzle = GetComponent<CameraPuzzle>();
                 cameraPuzzle.IniciarPuzzle(interactor);
-                puzzleLetter.isActive = true;
+                puzzleLetter.puzzleAtivado = true;
 
 
             }
@@ -33,7 +31,7 @@ public class TableForLatters : MonoBehaviour, INterfaceInteractor
         {
             CameraPuzzle cameraPuzzle = GetComponent<CameraPuzzle>();
             cameraPuzzle.ParaPuzzle(interactor);
-            puzzleLetter.isActive = false;
+            puzzleLetter.puzzleAtivado = false;
             Debug.Log("Era para sair do puzzle");
 
         }

@@ -8,7 +8,7 @@ public class PuzzleLetter : MonoBehaviour
     private GameObject selectedObject;
     public float scrollSpeed; //setar a velocidade com que a foto gira
 
-    public bool isActive = false; // bool para ativar e desativar o codigo
+    public bool puzzleAtivado = false; // bool para ativar e desativar o codigo
 
     private void Awake()
     {
@@ -35,7 +35,7 @@ public class PuzzleLetter : MonoBehaviour
     //raycast
     private void OnClick(InputAction.CallbackContext context)
     {
-        if (!isActive) return;
+        if (!puzzleAtivado) return;
 
         Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
         if (Physics.Raycast(ray, out RaycastHit hit))
@@ -50,7 +50,7 @@ public class PuzzleLetter : MonoBehaviour
     // aqui para mover o objeto, usando a posição do mouse, mas mantendo o y fixo
     void Update()
     {
-        if (!isActive) return; 
+        if (!puzzleAtivado) return;
 
         if (selectedObject != null)
         {
@@ -67,15 +67,16 @@ public class PuzzleLetter : MonoBehaviour
             {
                 selectedObject = null;
             }
-        }
+
             //Aqui é a parte da rotação da carta
             Vector2 scrollValue = controls.Letter.Rotacionarcarta.ReadValue<Vector2>();
             float scrollrotacaoY = scrollValue.y;
 
             if (scrollrotacaoY != 0f)
             {
-            selectedObject.transform.Rotate(Vector3.up, scrollrotacaoY * scrollSpeed * Time.deltaTime, Space.World);
+                selectedObject.transform.Rotate(Vector3.up, scrollrotacaoY * scrollSpeed * Time.deltaTime, Space.World);
             }
+        }
 
     }
 }

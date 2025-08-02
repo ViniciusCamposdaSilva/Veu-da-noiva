@@ -3,7 +3,7 @@ using UnityEngine;
 public class Letters : MonoBehaviour
 {
     
-    public static int quantidadeTotalCartas = 1; 
+    public static int quantidadeTotalCartas = 2; 
 
     public static int quantidadeAtualCartas = 0;
 
