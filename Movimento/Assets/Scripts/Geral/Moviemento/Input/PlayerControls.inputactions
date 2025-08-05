@@ -160,6 +160,45 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Cofre",
+            "id": "ec8fbd75-5d45-46c8-a495-b0ff5a8353f2",
+            "actions": [
+                {
+                    "name": "Rotation",
+                    "type": "Button",
+                    "id": "19c8cefe-822d-4067-acfa-3f3775799633",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "bea6821f-47e6-41b1-a6b4-31b0acc541e2",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b7ea00a8-5d46-4ce2-a8f5-eb45ac1e8574",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
