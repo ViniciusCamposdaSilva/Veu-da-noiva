@@ -1,13 +1,26 @@
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
+using System.Collections;
 
 public class TableForLatters : MonoBehaviour, INterfaceInteractor
 {
     [SerializeField] private string _prompt;
     public string InteractionPrompt => _prompt;
     public PuzzleLetter puzzleLetter;
+    public GameObject[] objetosParaAparecer;
+    public float delayEntreObjetos = 0.3f;
 
+
+
+    void Start()
+    {
+        // Aqui esconde todas as cartas que estavam na mesa
+        foreach (GameObject obj in objetosParaAparecer)
+        {
+            obj.SetActive(false);
+        }
+    }
 
     public bool Interact(Interactor interactor)
     {
@@ -23,6 +36,7 @@ public class TableForLatters : MonoBehaviour, INterfaceInteractor
                 CameraPuzzle cameraPuzzle = GetComponent<CameraPuzzle>();
                 cameraPuzzle.IniciarPuzzle(interactor);
                 puzzleLetter.puzzleAtivado = true;
+                StartCoroutine(AparecerObjetosComDelay());
 
 
             }
@@ -38,6 +52,14 @@ public class TableForLatters : MonoBehaviour, INterfaceInteractor
         return true;
     }
     
-
+        private IEnumerator AparecerObjetosComDelay()
+        {
+            foreach (GameObject obj in objetosParaAparecer)
+            {
+            obj.SetActive(true);
+            yield return new WaitForSeconds(delayEntreObjetos);
+            }
+        }
 
 }
+
