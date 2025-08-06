@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(CharacterController))] 
+[RequireComponent(typeof(CharacterController))]
 // Automaticamente pede um Controlador de Personagem para tudo funcionar.
 
 public class FirstPersonController : MonoBehaviour
@@ -28,7 +28,7 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
 
     // Permite utilizar a c�mera principal...
-    
+
     [Header("References")]
     [SerializeField] private Transform cameraTransform;
 
@@ -57,12 +57,10 @@ public class FirstPersonController : MonoBehaviour
     private Vector3 checkPosition;
     private Collider[] groundCheckResults = new Collider[1]; // Array pr�-alocado (n�o tenho muita no��o disso.).
 
-    // Variavel pro som
-    public AudioSource andandoMadeira;
+ 
+
     void Start()
     {
-        
-
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
@@ -83,9 +81,9 @@ public class FirstPersonController : MonoBehaviour
 
         // Corrige valores de rota��o:
         if (verticalRotation > 180) verticalRotation -= 360;
-        Cursor.lockState = CursorLockMode.Locked;
-    }
 
+    }
+    
     // Uma bool só para setar se o player pode ou não se movimentar
     private bool _canMove = true;
 
@@ -93,10 +91,6 @@ public class FirstPersonController : MonoBehaviour
     public void SetControl(bool enabled)
     {
         _canMove = enabled;
-        if (!enabled && andandoMadeira.isPlaying)
-    {
-        andandoMadeira.Stop();
-    }
     }
     void Update()
     {
@@ -125,20 +119,10 @@ public class FirstPersonController : MonoBehaviour
 
         // C�digo de movimento 3D! 
         Vector3 move = (transform.right * moveInput.x + transform.forward * moveInput.y) * walkSpeed;
-            if (moveInput != Vector2.zero && isGrounded && !andandoMadeira.isPlaying)
-            {
-            andandoMadeira.Play();
-            }
-            else if ((moveInput == Vector2.zero || !isGrounded) && andandoMadeira.isPlaying)
-{
-    andandoMadeira.Stop();
-}
-
 
         // O Time.deltaTime � bem legal, j� que calcula o tempo entre cada frame
         // para que o movimento n�o seja baseado em FPS...
         controller.Move(move * Time.deltaTime);
-        
     }
 
     private void HandleCameraRotation()

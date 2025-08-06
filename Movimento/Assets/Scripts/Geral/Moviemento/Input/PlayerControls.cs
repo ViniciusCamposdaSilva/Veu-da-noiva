@@ -246,74 +246,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
-        },
-        {
-            ""name"": ""Cofre"",
-            ""id"": ""ec8fbd75-5d45-46c8-a495-b0ff5a8353f2"",
-            ""actions"": [
-                {
-                    ""name"": ""RotationRight"",
-                    ""type"": ""Button"",
-                    ""id"": ""19c8cefe-822d-4067-acfa-3f3775799633"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""RotationLeft"",
-                    ""type"": ""Button"",
-                    ""id"": ""653dd513-8c38-485c-96b7-b2a3397157d1"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""CheckNumber"",
-                    ""type"": ""Button"",
-                    ""id"": ""794996c1-1010-4be1-9206-8c2b9908748c"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""bea6821f-47e6-41b1-a6b4-31b0acc541e2"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""RotationRight"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""b7ea00a8-5d46-4ce2-a8f5-eb45ac1e8574"",
-                    ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""RotationLeft"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""6acbff5a-e623-43fb-b4d8-d6c72ee41c13"",
-                    ""path"": ""<Keyboard>/z"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""CheckNumber"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
         }
     ],
     ""controlSchemes"": []
@@ -327,18 +259,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Letter = asset.FindActionMap("Letter", throwIfNotFound: true);
         m_Letter_Selecionar = m_Letter.FindAction("Selecionar", throwIfNotFound: true);
         m_Letter_Rotacionarcarta = m_Letter.FindAction("Rotacionarcarta", throwIfNotFound: true);
-        // Cofre
-        m_Cofre = asset.FindActionMap("Cofre", throwIfNotFound: true);
-        m_Cofre_RotationRight = m_Cofre.FindAction("RotationRight", throwIfNotFound: true);
-        m_Cofre_RotationLeft = m_Cofre.FindAction("RotationLeft", throwIfNotFound: true);
-        m_Cofre_CheckNumber = m_Cofre.FindAction("CheckNumber", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
     {
         UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, PlayerControls.Player.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_Letter.enabled, "This will cause a leak and performance issues, PlayerControls.Letter.Disable() has not been called.");
-        UnityEngine.Debug.Assert(!m_Cofre.enabled, "This will cause a leak and performance issues, PlayerControls.Cofre.Disable() has not been called.");
     }
 
     /// <summary>
@@ -635,124 +561,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="LetterActions" /> instance referencing this action map.
     /// </summary>
     public LetterActions @Letter => new LetterActions(this);
-
-    // Cofre
-    private readonly InputActionMap m_Cofre;
-    private List<ICofreActions> m_CofreActionsCallbackInterfaces = new List<ICofreActions>();
-    private readonly InputAction m_Cofre_RotationRight;
-    private readonly InputAction m_Cofre_RotationLeft;
-    private readonly InputAction m_Cofre_CheckNumber;
-    /// <summary>
-    /// Provides access to input actions defined in input action map "Cofre".
-    /// </summary>
-    public struct CofreActions
-    {
-        private @PlayerControls m_Wrapper;
-
-        /// <summary>
-        /// Construct a new instance of the input action map wrapper class.
-        /// </summary>
-        public CofreActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
-        /// <summary>
-        /// Provides access to the underlying input action "Cofre/RotationRight".
-        /// </summary>
-        public InputAction @RotationRight => m_Wrapper.m_Cofre_RotationRight;
-        /// <summary>
-        /// Provides access to the underlying input action "Cofre/RotationLeft".
-        /// </summary>
-        public InputAction @RotationLeft => m_Wrapper.m_Cofre_RotationLeft;
-        /// <summary>
-        /// Provides access to the underlying input action "Cofre/CheckNumber".
-        /// </summary>
-        public InputAction @CheckNumber => m_Wrapper.m_Cofre_CheckNumber;
-        /// <summary>
-        /// Provides access to the underlying input action map instance.
-        /// </summary>
-        public InputActionMap Get() { return m_Wrapper.m_Cofre; }
-        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
-        public void Enable() { Get().Enable(); }
-        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
-        public void Disable() { Get().Disable(); }
-        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
-        public bool enabled => Get().enabled;
-        /// <summary>
-        /// Implicitly converts an <see ref="CofreActions" /> to an <see ref="InputActionMap" /> instance.
-        /// </summary>
-        public static implicit operator InputActionMap(CofreActions set) { return set.Get(); }
-        /// <summary>
-        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
-        /// </summary>
-        /// <param name="instance">Callback instance.</param>
-        /// <remarks>
-        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
-        /// </remarks>
-        /// <seealso cref="CofreActions" />
-        public void AddCallbacks(ICofreActions instance)
-        {
-            if (instance == null || m_Wrapper.m_CofreActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_CofreActionsCallbackInterfaces.Add(instance);
-            @RotationRight.started += instance.OnRotationRight;
-            @RotationRight.performed += instance.OnRotationRight;
-            @RotationRight.canceled += instance.OnRotationRight;
-            @RotationLeft.started += instance.OnRotationLeft;
-            @RotationLeft.performed += instance.OnRotationLeft;
-            @RotationLeft.canceled += instance.OnRotationLeft;
-            @CheckNumber.started += instance.OnCheckNumber;
-            @CheckNumber.performed += instance.OnCheckNumber;
-            @CheckNumber.canceled += instance.OnCheckNumber;
-        }
-
-        /// <summary>
-        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
-        /// </summary>
-        /// <remarks>
-        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
-        /// </remarks>
-        /// <seealso cref="CofreActions" />
-        private void UnregisterCallbacks(ICofreActions instance)
-        {
-            @RotationRight.started -= instance.OnRotationRight;
-            @RotationRight.performed -= instance.OnRotationRight;
-            @RotationRight.canceled -= instance.OnRotationRight;
-            @RotationLeft.started -= instance.OnRotationLeft;
-            @RotationLeft.performed -= instance.OnRotationLeft;
-            @RotationLeft.canceled -= instance.OnRotationLeft;
-            @CheckNumber.started -= instance.OnCheckNumber;
-            @CheckNumber.performed -= instance.OnCheckNumber;
-            @CheckNumber.canceled -= instance.OnCheckNumber;
-        }
-
-        /// <summary>
-        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="CofreActions.UnregisterCallbacks(ICofreActions)" />.
-        /// </summary>
-        /// <seealso cref="CofreActions.UnregisterCallbacks(ICofreActions)" />
-        public void RemoveCallbacks(ICofreActions instance)
-        {
-            if (m_Wrapper.m_CofreActionsCallbackInterfaces.Remove(instance))
-                UnregisterCallbacks(instance);
-        }
-
-        /// <summary>
-        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
-        /// </remarks>
-        /// <seealso cref="CofreActions.AddCallbacks(ICofreActions)" />
-        /// <seealso cref="CofreActions.RemoveCallbacks(ICofreActions)" />
-        /// <seealso cref="CofreActions.UnregisterCallbacks(ICofreActions)" />
-        public void SetCallbacks(ICofreActions instance)
-        {
-            foreach (var item in m_Wrapper.m_CofreActionsCallbackInterfaces)
-                UnregisterCallbacks(item);
-            m_Wrapper.m_CofreActionsCallbackInterfaces.Clear();
-            AddCallbacks(instance);
-        }
-    }
-    /// <summary>
-    /// Provides a new <see cref="CofreActions" /> instance referencing this action map.
-    /// </summary>
-    public CofreActions @Cofre => new CofreActions(this);
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Player" which allows adding and removing callbacks.
     /// </summary>
@@ -803,34 +611,5 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnRotacionarcarta(InputAction.CallbackContext context);
-    }
-    /// <summary>
-    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Cofre" which allows adding and removing callbacks.
-    /// </summary>
-    /// <seealso cref="CofreActions.AddCallbacks(ICofreActions)" />
-    /// <seealso cref="CofreActions.RemoveCallbacks(ICofreActions)" />
-    public interface ICofreActions
-    {
-        /// <summary>
-        /// Method invoked when associated input action "RotationRight" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnRotationRight(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "RotationLeft" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnRotationLeft(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "CheckNumber" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnCheckNumber(InputAction.CallbackContext context);
     }
 }

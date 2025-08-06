@@ -6,11 +6,9 @@ public class PuzzleLetter : MonoBehaviour
     private Camera mainCamera;
     private PlayerControls controls;
     private GameObject selectedObject;
-    private Vector3 offset; 
     public float scrollSpeed; //setar a velocidade com que a foto gira
 
     public bool puzzleAtivado = false; // bool para ativar e desativar o codigo
-    
 
     private void Awake()
     {
@@ -45,7 +43,6 @@ public class PuzzleLetter : MonoBehaviour
             if (hit.collider.CompareTag("Letters"))
             {
                 selectedObject = hit.collider.gameObject;
-                offset = selectedObject.transform.position - hit.point;
             }
         }
     }
@@ -63,7 +60,7 @@ public class PuzzleLetter : MonoBehaviour
             {
                 Vector3 mouseWorldPosition = ray.GetPoint(distance);
                 Vector3 currentPosition = selectedObject.transform.position;
-                selectedObject.transform.position = new Vector3(mouseWorldPosition.x + offset.x,currentPosition.y, mouseWorldPosition.z + offset.z);
+                selectedObject.transform.position = new Vector3(mouseWorldPosition.x, currentPosition.y, mouseWorldPosition.z);
             }
 
             if (!Mouse.current.leftButton.isPressed)
@@ -77,8 +74,7 @@ public class PuzzleLetter : MonoBehaviour
 
             if (scrollrotacaoY != 0f)
             {
-                selectedObject.transform.Rotate(Vector3.forward, scrollrotacaoY * scrollSpeed * Time.deltaTime, Space.Self);
-
+                selectedObject.transform.Rotate(Vector3.up, scrollrotacaoY * scrollSpeed * Time.deltaTime, Space.World);
             }
         }
 

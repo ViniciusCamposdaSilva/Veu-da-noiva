@@ -3,7 +3,9 @@
     <ui:VisualElement name="Container" style="flex-grow: 1; margin-bottom: 10px; align-items: auto; justify-content: center;">
         <ui:VisualElement name="Inventory" class="Inventory">
             <ui:Label text="Label" name="InventoryHeader" class="InventoryHeader" />
-            <ui:VisualElement name="SlotContainer" class="SlotsContainer SlotContainer" style="align-self: auto; flex-direction: row;" />
+            <ui:VisualElement name="SlotContainer" enabled="true" class="SlotsContainer SlotContainer" style="justify-content: space-between; align-self: auto;" />
+            <ui:Label name="selectionLabel" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; height: 10%; color: rgb(255, 255, 255); font-size: 20px; -unity-text-align: upper-left; -unity-font-style: normal;" />
         </ui:VisualElement>
+        <ui:VisualElement name="GhostIcon" style="flex-grow: 1; visibility: hidden; width: 10%; height: 15%; position: absolute; right: auto; bottom: auto; left: auto; align-self: center;" />
     </ui:VisualElement>
 </ui:UXML>

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class MainMenuEvents : MonoBehaviour
@@ -40,7 +41,7 @@ public class MainMenuEvents : MonoBehaviour
 
     private void OnPlayGameClick(ClickEvent Event)
     {
-        Debug.Log("Botão pressionado");
+        SceneManager.LoadScene("CenaDeMovimento");
     }
 
     private void OnSettingsClick(ClickEvent Event)
@@ -50,7 +51,7 @@ public class MainMenuEvents : MonoBehaviour
 
     private void OnRTDClick(ClickEvent Event)
     {
-        Debug.Log("Foi para o desktop");
+        Application.Quit();
     }
 
     private void OnAllButtonClick(ClickEvent Event)

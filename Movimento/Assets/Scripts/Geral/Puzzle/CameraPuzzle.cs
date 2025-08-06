@@ -1,29 +1,32 @@
 using UnityEngine;
 using System.Collections;
-using Unity.Collections;
 public class CameraPuzzle : MonoBehaviour
 {
 
     public Transform FocoCamera;
     private Vector3 _origemCamera;
     private Quaternion _origemRotacaoCamera;
+    public GameObject[] objetosParaAparecer;
+
     public GameObject indicador;
-    [SerializeField] private GameObject _player; 
-    [SerializeField] private GameObject _playerPositionForPuzzle; 
-    private Vector3 _posicaoOriginalPlayer;
-    
+    public float delayEntreObjetos = 0.3f;
+
+    void Start()
+{
+    // Aqui esconde todas as cartas que estavam na mesa
+    foreach (GameObject obj in objetosParaAparecer)
+        {
+            obj.SetActive(false);
+        }
+}
 
     public bool IniciarPuzzle(Interactor interactor)
     {
         _origemCamera = Camera.main.transform.position;
         _origemRotacaoCamera = Camera.main.transform.rotation;
-        _posicaoOriginalPlayer = _player.transform.position;
-        Debug.Log("Posição original: " + _posicaoOriginalPlayer);
-        
-        _player.transform.position = _playerPositionForPuzzle.transform.position;
 
         //Muda a bool que permite o movimnto para falsa
-        Debug.Log("Puzzle iniciado");
+        Debug.Log("Puzzle iniciado interagida");
         var playerController = interactor.GetComponent<FirstPersonController>();
         if (playerController == true)
         {
@@ -37,7 +40,20 @@ public class CameraPuzzle : MonoBehaviour
         Camera.main.transform.rotation = FocoCamera.rotation;
         indicador.SetActive(false);
 
+
+        StartCoroutine(AparecerObjetosComDelay());
+
         return true;
+    }
+
+    //isso revela as cartas que estavam escondidas
+    private IEnumerator AparecerObjetosComDelay()
+    {
+        foreach (GameObject obj in objetosParaAparecer)
+        {
+            obj.SetActive(true);
+            yield return new WaitForSeconds(delayEntreObjetos);
+        }
     }
 
 
@@ -45,30 +61,15 @@ public class CameraPuzzle : MonoBehaviour
     {
         //Muda a bool para permitir o movimento normal
         Debug.Log("Puzzle acabou");
-        
         var playerController = interactor.GetComponent<FirstPersonController>();
-        _player.transform.position = _posicaoOriginalPlayer;
         playerController.SetControl(true);
-        Cursor.lockState = CursorLockMode.Locked; 
+
+        Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
         Camera.main.transform.position = _origemCamera;
         Camera.main.transform.rotation = _origemRotacaoCamera;
         indicador.SetActive(true);
-        Debug.Log("Posição atual do player: " + _player.transform.position);
-
-        var controller = _player.GetComponent<CharacterController>();
-
-        if (controller != null)
-        {
-            controller.enabled = false;
-            _player.transform.position = _posicaoOriginalPlayer;
-            controller.enabled = true;
-        }
-        else
-        {
-            _player.transform.position = _posicaoOriginalPlayer;
-        }
 
         return true;
     }
