@@ -49,7 +49,7 @@ public class Cofre : MonoBehaviour, INterfaceInteractor
 
     void Rotate(float angle)
     {
-        ponteiroCofre.transform.Rotate(Vector3.forward, angle);
+        ponteiroCofre.transform.Rotate(Vector3.up, -angle);
         currentRotation += angle;
         currentRotation = (currentRotation + 360f) % 360f;
     }
