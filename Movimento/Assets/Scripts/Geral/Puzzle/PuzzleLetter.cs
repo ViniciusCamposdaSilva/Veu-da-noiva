@@ -9,6 +9,7 @@ public class PuzzleLetter : MonoBehaviour
     public float scrollSpeed; //setar a velocidade com que a foto gira
 
     public bool puzzleAtivado = false; // bool para ativar e desativar o codigo
+    
 
     private void Awake()
     {
