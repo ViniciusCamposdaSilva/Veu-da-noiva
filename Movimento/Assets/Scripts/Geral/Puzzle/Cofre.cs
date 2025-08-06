@@ -96,14 +96,20 @@ void ChecarNumeroAtual()
             }
             break;
         case 3:
-            if (_numeroTentado == _password3)
-            {
-                Debug.Log("O cofre abriu");
+                if (_numeroTentado == _password3)
+                {
+                    Debug.Log("O cofre abriu");
+                    FinalizarDemo final = FindObjectOfType<FinalizarDemo>();
+                    if (final != null)
+                    {
+                    final.ShowEndScreen();
+                    }
+                
             }
-            else
-            {
-                _managerPassword = 1;
-            }
+                else
+                {
+                    _managerPassword = 1;
+                }
             break;
     }
 }

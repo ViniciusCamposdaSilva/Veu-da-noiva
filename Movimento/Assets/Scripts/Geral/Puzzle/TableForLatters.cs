@@ -11,8 +11,6 @@ public class TableForLatters : MonoBehaviour, INterfaceInteractor
     public GameObject[] objetosParaAparecer;
     public float delayEntreObjetos = 0.3f;
 
-
-
     void Start()
     {
         // Aqui esconde todas as cartas que estavam na mesa
@@ -37,8 +35,7 @@ public class TableForLatters : MonoBehaviour, INterfaceInteractor
                 cameraPuzzle.IniciarPuzzle(interactor);
                 puzzleLetter.puzzleAtivado = true;
                 StartCoroutine(AparecerObjetosComDelay());
-
-
+            
             }
         }
         else
@@ -47,6 +44,7 @@ public class TableForLatters : MonoBehaviour, INterfaceInteractor
             cameraPuzzle.ParaPuzzle(interactor);
             puzzleLetter.puzzleAtivado = false;
             Debug.Log("Era para sair do puzzle");
+
 
         }
         return true;

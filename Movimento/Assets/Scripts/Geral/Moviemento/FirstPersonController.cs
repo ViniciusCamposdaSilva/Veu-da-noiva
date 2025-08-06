@@ -57,6 +57,8 @@ public class FirstPersonController : MonoBehaviour
     private Vector3 checkPosition;
     private Collider[] groundCheckResults = new Collider[1]; // Array pr�-alocado (n�o tenho muita no��o disso.).
 
+    // Variavel pro som
+    public AudioSource andandoMadeira;
     void Start()
     {
         
@@ -91,6 +93,10 @@ public class FirstPersonController : MonoBehaviour
     public void SetControl(bool enabled)
     {
         _canMove = enabled;
+        if (!enabled && andandoMadeira.isPlaying)
+    {
+        andandoMadeira.Stop();
+    }
     }
     void Update()
     {
@@ -119,10 +125,20 @@ public class FirstPersonController : MonoBehaviour
 
         // C�digo de movimento 3D! 
         Vector3 move = (transform.right * moveInput.x + transform.forward * moveInput.y) * walkSpeed;
+            if (moveInput != Vector2.zero && isGrounded && !andandoMadeira.isPlaying)
+            {
+            andandoMadeira.Play();
+            }
+            else if ((moveInput == Vector2.zero || !isGrounded) && andandoMadeira.isPlaying)
+{
+    andandoMadeira.Stop();
+}
+
 
         // O Time.deltaTime � bem legal, j� que calcula o tempo entre cada frame
         // para que o movimento n�o seja baseado em FPS...
         controller.Move(move * Time.deltaTime);
+        
     }
 
     private void HandleCameraRotation()

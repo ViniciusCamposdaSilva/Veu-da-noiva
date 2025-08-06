@@ -2,12 +2,11 @@ using UnityEngine;
 
 public class Letters : MonoBehaviour
 {
-    
-    public static int quantidadeTotalCartas = 2; 
-
+    //variaveis para o controle de cartas totais e atuais
+    public static int quantidadeTotalCartas = 2;
     public static int quantidadeAtualCartas = 0;
 
-    void OnDestroy()
+    private void OnDestroy()
     {
         quantidadeAtualCartas++;
         Debug.Log("Pegou uma carta");
