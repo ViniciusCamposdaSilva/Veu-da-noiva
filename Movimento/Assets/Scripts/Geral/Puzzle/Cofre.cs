@@ -57,11 +57,11 @@ public class Cofre : MonoBehaviour, INterfaceInteractor
 
     // leitura dos nº + confirmação da senha
 
-    public int password1 = 1;
-    public int password2 = 4;
-    public int password3 = 3;
-    public int numeroTentado;
-    public int managerPassword = 1;
+    private int _password1 = 1;
+    private int _password2 = 4;
+    private int _password3 = 3;
+    private int _numeroTentado;
+    private int _managerPassword = 1;
 
 void ChecarNumeroAtual()
 {
@@ -69,40 +69,40 @@ void ChecarNumeroAtual()
     float zRotation = ponteiroCofre.transform.localEulerAngles.z;
     int numero = Mathf.RoundToInt((360f - currentRotation) / 36f) % 10;
 
-    numeroTentado = numero; // <- Aqui atualiza com o número atual
+    _numeroTentado = numero; // <- Aqui atualiza com o número atual
 
     Debug.Log("Número atual do cofre: " + numero);
 
-    switch (managerPassword)
+    switch (_managerPassword)
     {
         case 1:
-            if (numeroTentado == password1)
+            if (_numeroTentado == _password1)
             {
-                managerPassword++;
+                _managerPassword++;
             }
             else
             {
-                managerPassword = 1;
+                _managerPassword = 1;
             }
             break;
         case 2:
-            if (numeroTentado == password2)
+            if (_numeroTentado == _password2)
             {
-                managerPassword++;
+                _managerPassword++;
             }
             else
             {
-                managerPassword = 1;
+                _managerPassword = 1;
             }
             break;
         case 3:
-            if (numeroTentado == password3)
+            if (_numeroTentado == _password3)
             {
                 Debug.Log("O cofre abriu");
             }
             else
             {
-                managerPassword = 1;
+                _managerPassword = 1;
             }
             break;
     }
