@@ -252,13 +252,31 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             ""id"": ""ec8fbd75-5d45-46c8-a495-b0ff5a8353f2"",
             ""actions"": [
                 {
-                    ""name"": ""Rotation"",
+                    ""name"": ""RotationRight"",
                     ""type"": ""Button"",
                     ""id"": ""19c8cefe-822d-4067-acfa-3f3775799633"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""RotationLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""653dd513-8c38-485c-96b7-b2a3397157d1"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CheckNumber"",
+                    ""type"": ""Button"",
+                    ""id"": ""794996c1-1010-4be1-9206-8c2b9908748c"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -269,7 +287,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Rotation"",
+                    ""action"": ""RotationRight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -280,7 +298,18 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Rotation"",
+                    ""action"": ""RotationLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6acbff5a-e623-43fb-b4d8-d6c72ee41c13"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CheckNumber"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -300,7 +329,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Letter_Rotacionarcarta = m_Letter.FindAction("Rotacionarcarta", throwIfNotFound: true);
         // Cofre
         m_Cofre = asset.FindActionMap("Cofre", throwIfNotFound: true);
-        m_Cofre_Rotation = m_Cofre.FindAction("Rotation", throwIfNotFound: true);
+        m_Cofre_RotationRight = m_Cofre.FindAction("RotationRight", throwIfNotFound: true);
+        m_Cofre_RotationLeft = m_Cofre.FindAction("RotationLeft", throwIfNotFound: true);
+        m_Cofre_CheckNumber = m_Cofre.FindAction("CheckNumber", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
@@ -608,7 +639,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     // Cofre
     private readonly InputActionMap m_Cofre;
     private List<ICofreActions> m_CofreActionsCallbackInterfaces = new List<ICofreActions>();
-    private readonly InputAction m_Cofre_Rotation;
+    private readonly InputAction m_Cofre_RotationRight;
+    private readonly InputAction m_Cofre_RotationLeft;
+    private readonly InputAction m_Cofre_CheckNumber;
     /// <summary>
     /// Provides access to input actions defined in input action map "Cofre".
     /// </summary>
@@ -621,9 +654,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// </summary>
         public CofreActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         /// <summary>
-        /// Provides access to the underlying input action "Cofre/Rotation".
+        /// Provides access to the underlying input action "Cofre/RotationRight".
         /// </summary>
-        public InputAction @Rotation => m_Wrapper.m_Cofre_Rotation;
+        public InputAction @RotationRight => m_Wrapper.m_Cofre_RotationRight;
+        /// <summary>
+        /// Provides access to the underlying input action "Cofre/RotationLeft".
+        /// </summary>
+        public InputAction @RotationLeft => m_Wrapper.m_Cofre_RotationLeft;
+        /// <summary>
+        /// Provides access to the underlying input action "Cofre/CheckNumber".
+        /// </summary>
+        public InputAction @CheckNumber => m_Wrapper.m_Cofre_CheckNumber;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -650,9 +691,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_CofreActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_CofreActionsCallbackInterfaces.Add(instance);
-            @Rotation.started += instance.OnRotation;
-            @Rotation.performed += instance.OnRotation;
-            @Rotation.canceled += instance.OnRotation;
+            @RotationRight.started += instance.OnRotationRight;
+            @RotationRight.performed += instance.OnRotationRight;
+            @RotationRight.canceled += instance.OnRotationRight;
+            @RotationLeft.started += instance.OnRotationLeft;
+            @RotationLeft.performed += instance.OnRotationLeft;
+            @RotationLeft.canceled += instance.OnRotationLeft;
+            @CheckNumber.started += instance.OnCheckNumber;
+            @CheckNumber.performed += instance.OnCheckNumber;
+            @CheckNumber.canceled += instance.OnCheckNumber;
         }
 
         /// <summary>
@@ -664,9 +711,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// <seealso cref="CofreActions" />
         private void UnregisterCallbacks(ICofreActions instance)
         {
-            @Rotation.started -= instance.OnRotation;
-            @Rotation.performed -= instance.OnRotation;
-            @Rotation.canceled -= instance.OnRotation;
+            @RotationRight.started -= instance.OnRotationRight;
+            @RotationRight.performed -= instance.OnRotationRight;
+            @RotationRight.canceled -= instance.OnRotationRight;
+            @RotationLeft.started -= instance.OnRotationLeft;
+            @RotationLeft.performed -= instance.OnRotationLeft;
+            @RotationLeft.canceled -= instance.OnRotationLeft;
+            @CheckNumber.started -= instance.OnCheckNumber;
+            @CheckNumber.performed -= instance.OnCheckNumber;
+            @CheckNumber.canceled -= instance.OnCheckNumber;
         }
 
         /// <summary>
@@ -759,11 +812,25 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     public interface ICofreActions
     {
         /// <summary>
-        /// Method invoked when associated input action "Rotation" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "RotationRight" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnRotation(InputAction.CallbackContext context);
+        void OnRotationRight(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "RotationLeft" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnRotationLeft(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "CheckNumber" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnCheckNumber(InputAction.CallbackContext context);
     }
 }

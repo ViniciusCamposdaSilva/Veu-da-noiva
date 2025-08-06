@@ -1,3 +1,4 @@
+using Mono.Cecil;
 using UnityEngine;
 using UnityEngine.InputSystem;
 public class Cofre : MonoBehaviour, INterfaceInteractor
@@ -5,6 +6,7 @@ public class Cofre : MonoBehaviour, INterfaceInteractor
     [SerializeField] private string _prompt;
     public string InteractionPrompt => _prompt;
 
+    // Vaviareis para o controle do confre
     private float rotationValue = 36f;  //Isso vai defini o quanto q ele vai rotacionar
 
     private float currentRotation;
@@ -16,19 +18,28 @@ public class Cofre : MonoBehaviour, INterfaceInteractor
     //Interação com o cofre
     public bool Interact(Interactor interactor)
     {
-        CameraPuzzle cameraPuzzle = GetComponent<CameraPuzzle>();
 
-        if (_cofreAtivo)
+
+        if (!_cofreAtivo)
         {
+            controls = new PlayerControls();
+            controls.Cofre.RotationRight.performed += _ => Rotate(rotationValue);
+            controls.Cofre.RotationLeft.performed += _ => Rotate(-rotationValue);
+            controls.Cofre.CheckNumber.performed += _ => ChecarNumeroAtual();
+
+            controls.Cofre.Enable();
+
+            CameraPuzzle cameraPuzzle = GetComponent<CameraPuzzle>();
             cameraPuzzle.IniciarPuzzle(interactor);
             _cofreAtivo = true;
-
         }
         else
         {
-
+            CameraPuzzle cameraPuzzle = GetComponent<CameraPuzzle>();
             cameraPuzzle.ParaPuzzle(interactor);
             _cofreAtivo = false;
+
+            controls.Cofre.Disable();
 
             Debug.Log("Era para sair do puzzle");
         }
@@ -36,29 +47,66 @@ public class Cofre : MonoBehaviour, INterfaceInteractor
         return true;
     }
 
-    // Controle do Cofre:
-    void Awake()
+    void Rotate(float angle)
     {
-        controls = new PlayerControls();
-    }
-
-    void OnEnable()
-    {
-        controls.Cofre.Enable();
-        controls.Cofre.Rotation.performed += ctx => ControleCofre();
-    }
-
-    void OnDisable()
-    {
-        controls.Cofre.Disable();
+        ponteiroCofre.transform.Rotate(Vector3.forward, angle);
+        currentRotation += angle;
+        currentRotation = (currentRotation + 360f) % 360f;
     }
 
 
-    public void ControleCofre()
+    // leitura dos nº + confirmação da senha
+
+    public int password1 = 1;
+    public int password2 = 4;
+    public int password3 = 3;
+    public int numeroTentado;
+    public int managerPassword = 1;
+
+void ChecarNumeroAtual()
+{
+    int numeroAtual = Mathf.RoundToInt(currentRotation / 36f) % 10;
+    float zRotation = ponteiroCofre.transform.localEulerAngles.z;
+    int numero = Mathf.RoundToInt((360f - currentRotation) / 36f) % 10;
+
+    numeroTentado = numero; // <- Aqui atualiza com o número atual
+
+    Debug.Log("Número atual do cofre: " + numero);
+
+    switch (managerPassword)
     {
-
-
-
-        
+        case 1:
+            if (numeroTentado == password1)
+            {
+                managerPassword++;
+            }
+            else
+            {
+                managerPassword = 1;
+            }
+            break;
+        case 2:
+            if (numeroTentado == password2)
+            {
+                managerPassword++;
+            }
+            else
+            {
+                managerPassword = 1;
+            }
+            break;
+        case 3:
+            if (numeroTentado == password3)
+            {
+                Debug.Log("O cofre abriu");
+            }
+            else
+            {
+                managerPassword = 1;
+            }
+            break;
     }
+}
+
+
 }

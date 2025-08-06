@@ -166,13 +166,31 @@
             "id": "ec8fbd75-5d45-46c8-a495-b0ff5a8353f2",
             "actions": [
                 {
-                    "name": "Rotation",
+                    "name": "RotationRight",
                     "type": "Button",
                     "id": "19c8cefe-822d-4067-acfa-3f3775799633",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "RotationLeft",
+                    "type": "Button",
+                    "id": "653dd513-8c38-485c-96b7-b2a3397157d1",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CheckNumber",
+                    "type": "Button",
+                    "id": "794996c1-1010-4be1-9206-8c2b9908748c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -183,7 +201,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Rotation",
+                    "action": "RotationRight",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -194,7 +212,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Rotation",
+                    "action": "RotationLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6acbff5a-e623-43fb-b4d8-d6c72ee41c13",
+                    "path": "<Keyboard>/z",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CheckNumber",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
