@@ -7,6 +7,7 @@ public class TableForLatters : MonoBehaviour, INterfaceInteractor
     [SerializeField] private string _prompt;
     public string InteractionPrompt => _prompt;
     public PuzzleLetter puzzleLetter;
+    
 
 
     public bool Interact(Interactor interactor)
@@ -20,6 +21,7 @@ public class TableForLatters : MonoBehaviour, INterfaceInteractor
             }
             else
             {
+                StartCoroutine(puzzleLetter.AparecerObjetosComDelay());
                 CameraPuzzle cameraPuzzle = GetComponent<CameraPuzzle>();
                 cameraPuzzle.IniciarPuzzle(interactor);
                 puzzleLetter.puzzleAtivado = true;

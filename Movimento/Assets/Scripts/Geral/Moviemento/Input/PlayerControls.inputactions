@@ -160,6 +160,74 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Cofre",
+            "id": "a2d5ad69-5162-4b13-abbb-738bb0c7e266",
+            "actions": [
+                {
+                    "name": "RotationRight",
+                    "type": "Button",
+                    "id": "3bb333f1-28e2-4d01-b546-8872fae41571",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RotationLeft",
+                    "type": "Button",
+                    "id": "252fd1ca-2804-46b3-8e54-b253db77669d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CheckNumber",
+                    "type": "Button",
+                    "id": "76bf075d-134c-4a7d-8552-8cf440525d01",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "d68b9b24-dd84-4bb7-b3ea-8434b3658c3f",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotationRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fdae0cab-ccc5-4e9e-b75c-468d5d991ee6",
+                    "path": "<Keyboard>/z",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CheckNumber",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8c2e072e-9bf6-43c4-815f-bdd5d4cd20c4",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RotationLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

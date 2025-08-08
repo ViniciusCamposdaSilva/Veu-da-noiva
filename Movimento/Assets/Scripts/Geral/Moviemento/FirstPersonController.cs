@@ -57,7 +57,10 @@ public class FirstPersonController : MonoBehaviour
     private Vector3 checkPosition;
     private Collider[] groundCheckResults = new Collider[1]; // Array pr�-alocado (n�o tenho muita no��o disso.).
 
- 
+    // var para o som
+    [SerializeField] private AudioSource walkAudioSource;
+
+
 
     void Start()
     {
@@ -113,17 +116,29 @@ public class FirstPersonController : MonoBehaviour
     }
 
     private void HandleMovement()
+{
+    moveInput = moveAction.ReadValue<Vector2>();
+    Vector3 move = (transform.right * moveInput.x + transform.forward * moveInput.y) * walkSpeed;
+    controller.Move(move * Time.deltaTime);
+
+    bool isMoving = moveInput != Vector2.zero;
+
+    if (isGrounded && isMoving)
     {
-        // L� se o jogador t� usando WASD e usa isso no vetor2:
-        moveInput = moveAction.ReadValue<Vector2>();
-
-        // C�digo de movimento 3D! 
-        Vector3 move = (transform.right * moveInput.x + transform.forward * moveInput.y) * walkSpeed;
-
-        // O Time.deltaTime � bem legal, j� que calcula o tempo entre cada frame
-        // para que o movimento n�o seja baseado em FPS...
-        controller.Move(move * Time.deltaTime);
+        if (!walkAudioSource.isPlaying)
+        {
+            walkAudioSource.Play();
+        }
     }
+    else
+    {
+        if (walkAudioSource.isPlaying)
+        {
+            walkAudioSource.Stop();
+        }
+    }
+}
+
 
     private void HandleCameraRotation()
     {

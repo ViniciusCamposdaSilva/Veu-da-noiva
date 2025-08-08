@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class PuzzleLetter : MonoBehaviour
 {
@@ -7,8 +8,12 @@ public class PuzzleLetter : MonoBehaviour
     private PlayerControls controls;
     private GameObject selectedObject;
     public float scrollSpeed; //setar a velocidade com que a foto gira
-
     public bool puzzleAtivado = false; // bool para ativar e desativar o codigo
+
+    // var para as cartas aparecerem
+    public float delayEntreObjetos = 0.3f;
+    public GameObject[] objetosParaAparecer;
+
 
     private void Awake()
     {
@@ -27,10 +32,23 @@ public class PuzzleLetter : MonoBehaviour
         controls.Letter.Disable();
     }
 
-     void Start()
-     {
-         mainCamera = Camera.main;
+    void Start()
+    {
+        mainCamera = Camera.main;
+        foreach (GameObject obj in objetosParaAparecer)
+        {
+            obj.SetActive(false);
+        }
      }
+         //isso revela as cartas que estavam escondidas
+    public IEnumerator AparecerObjetosComDelay()
+    {
+        foreach (GameObject obj in objetosParaAparecer)
+        {
+            obj.SetActive(true);
+            yield return new WaitForSeconds(delayEntreObjetos);
+        }
+    }
 
     //raycast
     private void OnClick(InputAction.CallbackContext context)
