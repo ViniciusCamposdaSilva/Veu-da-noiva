@@ -99,10 +99,12 @@ void ChecarNumeroAtual()
                 if (_numeroTentado == _password3)
                 {
                     Debug.Log("O cofre abriu");
-                    FinalizarDemo final = FindObjectOfType<FinalizarDemo>();
+                    FinalizarDemo final = FindAnyObjectByType<FinalizarDemo>();
                     if (final != null)
                     {
-                    final.ShowEndScreen();
+                        final.ShowEndScreen();
+                        _cofreAtivo = false;
+                        controls.Cofre.Disable();
                     }
                 
             }
