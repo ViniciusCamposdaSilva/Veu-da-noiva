@@ -236,8 +236,19 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""7a2c290e-e280-4972-acae-c90a9323bcb3"",
-                    ""path"": ""<Mouse>/scroll"",
+                    ""id"": ""8970debb-9bb9-4800-8b1f-0b7c0e235e13"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": ""Invert"",
+                    ""groups"": """",
+                    ""action"": ""Rotacionarcarta"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0033b353-5c8c-4ae6-81b4-50a067b040ef"",
+                    ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

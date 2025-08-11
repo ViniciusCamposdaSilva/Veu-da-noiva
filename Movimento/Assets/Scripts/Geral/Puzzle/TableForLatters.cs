@@ -8,10 +8,10 @@ public class TableForLatters : MonoBehaviour, INterfaceInteractor
     [SerializeField] private string _prompt;
     public string InteractionPrompt => _prompt;
     public PuzzleLetter puzzleLetter;
+    
+    //Var para as cartas em cima da mesa aparecerem
     public GameObject[] objetosParaAparecer;
     public float delayEntreObjetos = 0.3f;
-
-
 
     void Start()
     {
@@ -21,7 +21,6 @@ public class TableForLatters : MonoBehaviour, INterfaceInteractor
             obj.SetActive(false);
         }
     }
-
     public bool Interact(Interactor interactor)
     {
         if (puzzleLetter.puzzleAtivado == false)
@@ -33,6 +32,7 @@ public class TableForLatters : MonoBehaviour, INterfaceInteractor
             }
             else
             {
+                StartCoroutine(AparecerObjetosComDelay());
                 CameraPuzzle cameraPuzzle = GetComponent<CameraPuzzle>();
                 cameraPuzzle.IniciarPuzzle(interactor);
                 puzzleLetter.puzzleAtivado = true;
@@ -52,14 +52,15 @@ public class TableForLatters : MonoBehaviour, INterfaceInteractor
         return true;
     }
     
-        private IEnumerator AparecerObjetosComDelay()
+    //isso revela as cartas que estavam escondidas
+    private IEnumerator AparecerObjetosComDelay()
+    {
+        foreach (GameObject obj in objetosParaAparecer)
         {
-            foreach (GameObject obj in objetosParaAparecer)
-            {
             obj.SetActive(true);
             yield return new WaitForSeconds(delayEntreObjetos);
-            }
         }
+    }
 
 }
 
