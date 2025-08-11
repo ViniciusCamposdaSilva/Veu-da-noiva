@@ -64,9 +64,6 @@ public class FirstPersonController : MonoBehaviour
 
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-
         //Procura pelo componente desejado:
         controller = GetComponent<CharacterController>();
         playerInput = GetComponent<PlayerInput>();

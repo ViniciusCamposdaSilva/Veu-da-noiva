@@ -4,11 +4,13 @@ using System.Collections;
 
 public class PuzzleLetter : MonoBehaviour
 {
-    private Camera mainCamera;
+    public Camera mainCamera;
+    public Camera SubCamera;
     private PlayerControls controls;
     private GameObject selectedObject;
     public float scrollSpeed; //setar a velocidade com que a foto gira
     public bool puzzleAtivado = false; // bool para ativar e desativar o codigo
+    
 
     // var para as cartas aparecerem
     public float delayEntreObjetos = 0.3f;
@@ -34,7 +36,7 @@ public class PuzzleLetter : MonoBehaviour
 
     void Start()
     {
-        mainCamera = Camera.main;
+        
         foreach (GameObject obj in objetosParaAparecer)
         {
             obj.SetActive(false);
@@ -54,13 +56,15 @@ public class PuzzleLetter : MonoBehaviour
     private void OnClick(InputAction.CallbackContext context)
     {
         if (!puzzleAtivado) return;
+        LayerMask puzzleMask = LayerMask.GetMask("Puzzles");
 
-        Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        Ray ray = SubCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
+        if (Physics.Raycast(ray, out RaycastHit hit, puzzleMask))
         {
             if (hit.collider.CompareTag("Letters"))
             {
                 selectedObject = hit.collider.gameObject;
+
             }
         }
     }
@@ -72,7 +76,7 @@ public class PuzzleLetter : MonoBehaviour
 
         if (selectedObject != null)
         {
-            Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
+            Ray ray = SubCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
             Plane plane = new Plane(Vector3.up, selectedObject.transform.position);
             if (plane.Raycast(ray, out float distance))
             {

@@ -8,6 +8,9 @@ using UnityEngine.UIElements;
 public class InventoryUiController : MonoBehaviour
 {
     public List<InventorySlot> InventoryItems = new List<InventorySlot>();
+    public LayerMask UI;
+    private bool VChecker;
+
 
     private VisualElement m_Root;
     private VisualElement m_SlotContainer;
@@ -37,7 +40,9 @@ public class InventoryUiController : MonoBehaviour
 
             m_SlotContainer.Add(item);
         }
-
+        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+        UnityEngine.Cursor.visible = false;
+        m_Root.visible = false;
 
         m_GhostIcon.RegisterCallback<PointerMoveEvent>(OnPointerMove);
         m_GhostIcon.RegisterCallback<PointerUpEvent>(OnPointerUp);
@@ -46,9 +51,32 @@ public class InventoryUiController : MonoBehaviour
     }
     private void Update()
     {
-        if (Keyboard.current.iKey.wasPressedThisFrame) m_Root.visible = true;
-        if (Keyboard.current.escapeKey.wasPressedThisFrame) m_Root.visible = false;
+        if (Keyboard.current.iKey.wasPressedThisFrame && VChecker == false) 
+        {
+            IsVisible();
+        }
+        else if(Keyboard.current.iKey.wasPressedThisFrame && VChecker == true)
+        {
+            IsInvisible();
+        }
+        
     }
+    private void IsVisible()
+    {
+        m_Root.visible = true;
+        VChecker = true;
+        UnityEngine.Cursor.lockState = CursorLockMode.None;
+        UnityEngine.Cursor.visible = true;
+
+    }
+    private void IsInvisible()
+    {
+        m_Root.visible = false;
+        VChecker = false;
+        UnityEngine.Cursor.lockState = CursorLockMode.None;
+        UnityEngine.Cursor.visible = false;
+    }
+
     private void OnPointerMove(PointerMoveEvent evt)
     {
         //Only take action if the player is dragging an item around the screen
