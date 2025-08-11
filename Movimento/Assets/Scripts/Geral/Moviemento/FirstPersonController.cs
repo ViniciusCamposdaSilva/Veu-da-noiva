@@ -87,10 +87,15 @@ public class FirstPersonController : MonoBehaviour
     // Uma bool só para setar se o player pode ou não se movimentar
     private bool _canMove = true;
 
-    // Um metódo para permite alterar essa boll
-    public void SetControl(bool enabled)
+    // Um metódo para permite alterar essa bool
+    public void SetControl(bool ativado)
     {
-        _canMove = enabled;
+        _canMove = ativado;
+        if (walkAudioSource.isPlaying && !ativado)
+        {
+            walkAudioSource.Stop();
+        }
+
     }
     void Update()
     {

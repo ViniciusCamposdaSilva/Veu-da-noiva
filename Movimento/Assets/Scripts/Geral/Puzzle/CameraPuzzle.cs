@@ -1,29 +1,28 @@
 using UnityEngine;
-using System.Collections;
 public class CameraPuzzle : MonoBehaviour
 {
-
-    public Transform FocoCamera;
-    private Vector3 _origemCamera;
-    private Quaternion _origemRotacaoCamera;
-    public GameObject[] objetosParaAparecer;
-
+    
     public GameObject indicador;
-    public float delayEntreObjetos = 0.3f;
 
-    void Start()
-{
-    // Aqui esconde todas as cartas que estavam na mesa
-    foreach (GameObject obj in objetosParaAparecer)
-        {
-            obj.SetActive(false);
-        }
-}
+    // Var para teleportar a câmera
+    public Transform FocoCamera;
+    private Vector3 _originalPositionCamera; 
+    private Quaternion _originalRotationCamera;
+
+    // Var para teleportar o player
+    private Vector3 _originalPositionPlayer; //local em que o player deve voltar após o puzzle
+    [SerializeField] private GameObject _puzzlePosition; //local em que o player deve ir quando começar um puzzle
+    [SerializeField] private GameObject _player;
+
 
     public bool IniciarPuzzle(Interactor interactor)
     {
-        _origemCamera = Camera.main.transform.position;
-        _origemRotacaoCamera = Camera.main.transform.rotation;
+        _originalPositionCamera = Camera.main.transform.position;
+        _originalRotationCamera = Camera.main.transform.rotation;
+        _originalPositionPlayer = _player.transform.position;
+        _player.transform.position = _puzzlePosition.transform.position;
+
+        Debug.Log("posição original do player: " + _originalPositionPlayer);
 
         //Muda a bool que permite o movimnto para falsa
         Debug.Log("Puzzle iniciado interagida");
@@ -39,39 +38,33 @@ public class CameraPuzzle : MonoBehaviour
         Camera.main.transform.position = FocoCamera.position;
         Camera.main.transform.rotation = FocoCamera.rotation;
         indicador.SetActive(false);
-
-
-        StartCoroutine(AparecerObjetosComDelay());
-
         return true;
     }
 
-    //isso revela as cartas que estavam escondidas
-    private IEnumerator AparecerObjetosComDelay()
-    {
-        foreach (GameObject obj in objetosParaAparecer)
-        {
-            obj.SetActive(true);
-            yield return new WaitForSeconds(delayEntreObjetos);
-        }
-    }
-
-
-    public bool ParaPuzzle(Interactor interactor)
+    public void ParaPuzzle(Interactor interactor)
     {
         //Muda a bool para permitir o movimento normal
         Debug.Log("Puzzle acabou");
         var playerController = interactor.GetComponent<FirstPersonController>();
+        _player.transform.position = _originalPositionPlayer;
         playerController.SetControl(true);
+
+        var characterController = _player.GetComponent<CharacterController>();
+        if (characterController != null)
+        {
+        characterController.enabled = false;
+        _player.transform.position = _originalPositionPlayer;
+        characterController.enabled = true;
+        }
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        Camera.main.transform.position = _origemCamera;
-        Camera.main.transform.rotation = _origemRotacaoCamera;
-        indicador.SetActive(true);
+        Camera.main.transform.position = _originalPositionCamera;
+        Camera.main.transform.rotation = _originalRotationCamera;
+        
 
-        return true;
+        indicador.SetActive(true);
     }
     
 }
