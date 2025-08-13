@@ -8,6 +8,7 @@ public class TableForLatters : MonoBehaviour, INterfaceInteractor
     [SerializeField] private string _prompt;
     public string InteractionPrompt => _prompt;
     public PuzzleLetter puzzleLetter;
+    // private AccentColor _accentColor;
     
     //Var para as cartas em cima da mesa aparecerem
     public GameObject[] objetosParaAparecer;
@@ -32,7 +33,9 @@ public class TableForLatters : MonoBehaviour, INterfaceInteractor
             }
             else
             {
+                //_accentColor.ReturnOriginialColor();
                 StartCoroutine(AparecerObjetosComDelay());
+                Letters.RemoverDestaque();
                 CameraPuzzle cameraPuzzle = GetComponent<CameraPuzzle>();
                 cameraPuzzle.IniciarPuzzle(interactor);
                 puzzleLetter.puzzleAtivado = true;

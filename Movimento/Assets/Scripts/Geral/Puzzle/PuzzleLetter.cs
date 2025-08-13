@@ -12,8 +12,8 @@ public class PuzzleLetter : MonoBehaviour
     public bool puzzleAtivado = false; // bool para ativar e desativar o codigo
 
     // var para as cartas aparecerem
-    public float delayEntreObjetos = 0.3f;
-    public GameObject[] objetosParaAparecer;
+    // public float delayEntreObjetos = 0.3f;
+    // public GameObject[] objetosParaAparecer;
 
 
     private void Awake()
@@ -33,7 +33,7 @@ public class PuzzleLetter : MonoBehaviour
         controls.Letter.Disable();
     }
 
-    void Start()
+    /* void Start()
     {
         
         foreach (GameObject obj in objetosParaAparecer)
@@ -50,6 +50,7 @@ public class PuzzleLetter : MonoBehaviour
             yield return new WaitForSeconds(delayEntreObjetos);
         }
     }
+    */
 
     //raycast
     private void OnClick(InputAction.CallbackContext context)
@@ -75,18 +76,20 @@ public class PuzzleLetter : MonoBehaviour
 
         if (selectedObject != null)
         {
-            Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
+            Ray ray = SubCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
             Plane plane = new Plane(Vector3.up, selectedObject.transform.position); // isso faz o y ser fixo pro objeto
             if (plane.Raycast(ray, out float distance))
             {
                 Vector3 mouseWorldPosition = ray.GetPoint(distance);
                 Vector3 currentPosition = selectedObject.transform.position;
                 selectedObject.transform.position = new Vector3(mouseWorldPosition.x, currentPosition.y, mouseWorldPosition.z);
+                Debug.Log("Era para pegar o objeto");
             }
 
             if (!Mouse.current.leftButton.isPressed)
             {
                 selectedObject = null;
+                Debug.Log("Soltou o objeto");
             }
 
             //Aqui é a parte da rotação da carta

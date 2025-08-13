@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="dialogue-panel" style="flex-direction: column; padding: 10px; background-color: rgba(0, 0, 0, 0.8); bottom: -427px; font-size: 20px;">
+        <ui:Label name="dialogue-text" text="Texto de exemplo" style="color: white; font-size: 16px;" />
+    </ui:VisualElement>
+</ui:UXML>

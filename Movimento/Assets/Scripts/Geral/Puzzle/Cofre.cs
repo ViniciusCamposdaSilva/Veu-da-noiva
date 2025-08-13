@@ -6,14 +6,16 @@ public class Cofre : MonoBehaviour, INterfaceInteractor
     [SerializeField] private string _prompt;
     public string InteractionPrompt => _prompt;
 
-    // Vaviareis para o controle do confre
-    private float rotationValue = 36f;  //Isso vai defini o quanto q ele vai rotacionar
+    // Var de animação
+    private Animator animator;
 
+    // Vaviareis para o controle do confre
+    private float rotationValue = 36f;
     private float currentRotation;
     PlayerControls controls;
     [SerializeField] GameObject ponteiroCofre;
-
     private bool _cofreAtivo = false;
+
 
     //Interação com o cofre
     public bool Interact(Interactor interactor)
@@ -49,7 +51,7 @@ public class Cofre : MonoBehaviour, INterfaceInteractor
 
     void Rotate(float angle)
     {
-        ponteiroCofre.transform.Rotate(Vector3.up, -angle);
+        ponteiroCofre.transform.Rotate(Vector3.up, angle);
         currentRotation += angle;
         currentRotation = (currentRotation + 360f) % 360f;
     }
@@ -62,8 +64,15 @@ public class Cofre : MonoBehaviour, INterfaceInteractor
     private int _password3 = 3;
     private int _numeroTentado;
     private int _managerPassword = 1;
+    [SerializeField] private GameObject chave;
+    [SerializeField]private Porta _porta;
 
-void ChecarNumeroAtual()
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
+
+    void ChecarNumeroAtual()
 {
     int numeroAtual = Mathf.RoundToInt(currentRotation / 36f) % 10;
     float zRotation = ponteiroCofre.transform.localEulerAngles.z;
@@ -100,14 +109,12 @@ void ChecarNumeroAtual()
                 {
                     Debug.Log("O cofre abriu");
                     FinalizarDemo final = FindAnyObjectByType<FinalizarDemo>();
-                    if (final != null)
-                    {
-                        final.ShowEndScreen();
-                        _cofreAtivo = false;
-                        controls.Cofre.Disable();
-                    }
+                    animator.SetTrigger("AbrirCofre");
+                    Destroy(chave, 2f);
+                    _porta.hasKey = true;
+                    _porta.AtivarDestaque();
                 
-            }
+                }
                 else
                 {
                     _managerPassword = 1;

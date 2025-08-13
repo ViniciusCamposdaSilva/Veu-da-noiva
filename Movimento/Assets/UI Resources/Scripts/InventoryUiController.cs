@@ -27,7 +27,7 @@ public class InventoryUiController : MonoBehaviour
         
         //Search the root for the SlotContainer Visual Element
         m_SlotContainer = m_Root.Q<VisualElement>("SlotContainer");
-        m_GhostIcon = m_Root.Query<VisualElement>("GhostIcon");
+        m_GhostIcon = m_Root.Query<VisualElement>("GhostIcon"); 
 
         m_Root.visible = false;
 

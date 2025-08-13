@@ -41,12 +41,12 @@ public class MainMenuEvents : MonoBehaviour
 
     private void OnPlayGameClick(ClickEvent Event)
     {
-        SceneManager.LoadScene("CenaDeMovimento");
+        SceneManager.LoadScene("Casa");
     }
 
     private void OnSettingsClick(ClickEvent Event)
     {
-        Debug.Log("Foi para as configurações");
+        Debug.Log("Foi para as configuraï¿½ï¿½es");
     }
 
     private void OnRTDClick(ClickEvent Event)

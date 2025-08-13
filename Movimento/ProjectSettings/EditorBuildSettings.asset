@@ -9,7 +9,10 @@ EditorBuildSettings:
     path: Assets/Cenas/Menu Principal.unity
     guid: a4d27d6b67d346d488a3ab34226a39ed
   - enabled: 1
-    path: Assets/Cenas/CenaDeMovimento.unity
+    path: Assets/Cenas/Casa.unity
+    guid: 2361db0f866df074fbe0247d942a0812
+  - enabled: 0
+    path: Assets/Cenas/CenaDeTestes.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: e5e8bda77e9d1944e881e1217242ce4d, type: 3}
