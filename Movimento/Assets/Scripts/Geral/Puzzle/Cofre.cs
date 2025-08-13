@@ -1,4 +1,3 @@
-using Mono.Cecil;
 using UnityEngine;
 using UnityEngine.InputSystem;
 public class Cofre : MonoBehaviour, INterfaceInteractor

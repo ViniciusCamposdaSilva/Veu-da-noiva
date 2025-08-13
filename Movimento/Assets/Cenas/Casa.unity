@@ -9935,7 +9935,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d39a26d8570e8649b8b13b7a2729c44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _prompt: 'E '
+  _prompt: E (A/D/Z)
   ponteiroCofre: {fileID: 1130299167}
   chave: {fileID: 1209254145}
   _porta: {fileID: 1265577028}
