@@ -16,36 +16,36 @@ public class Cofre : MonoBehaviour, INterfaceInteractor
     private bool _cofreAtivo = false;
 
 
+
     //Interação com o cofre
     public bool Interact(Interactor interactor)
     {
+            if (!_cofreAtivo)
+            {
+                controls = new PlayerControls();
+                controls.Cofre.RotationRight.performed += _ => Rotate(rotationValue);
+                controls.Cofre.RotationLeft.performed += _ => Rotate(-rotationValue);
+                controls.Cofre.CheckNumber.performed += _ => ChecarNumeroAtual();
 
+                controls.Cofre.Enable();
 
-        if (!_cofreAtivo)
-        {
-            controls = new PlayerControls();
-            controls.Cofre.RotationRight.performed += _ => Rotate(rotationValue);
-            controls.Cofre.RotationLeft.performed += _ => Rotate(-rotationValue);
-            controls.Cofre.CheckNumber.performed += _ => ChecarNumeroAtual();
+                CameraPuzzle cameraPuzzle = GetComponent<CameraPuzzle>();
+                cameraPuzzle.IniciarPuzzle(interactor);
+                _cofreAtivo = true;
+            }
+            else
+            {
+                CameraPuzzle cameraPuzzle = GetComponent<CameraPuzzle>();
+                cameraPuzzle.ParaPuzzle(interactor);
+                _cofreAtivo = false;
 
-            controls.Cofre.Enable();
+                controls.Cofre.Disable();
 
-            CameraPuzzle cameraPuzzle = GetComponent<CameraPuzzle>();
-            cameraPuzzle.IniciarPuzzle(interactor);
-            _cofreAtivo = true;
-        }
-        else
-        {
-            CameraPuzzle cameraPuzzle = GetComponent<CameraPuzzle>();
-            cameraPuzzle.ParaPuzzle(interactor);
-            _cofreAtivo = false;
+                Debug.Log("Era para sair do puzzle");
+            }
 
-            controls.Cofre.Disable();
-
-            Debug.Log("Era para sair do puzzle");
-        }
-
-        return true;
+            return true;
+        
     }
 
     void Rotate(float angle)
@@ -110,9 +110,8 @@ public class Cofre : MonoBehaviour, INterfaceInteractor
                     FinalizarDemo final = FindAnyObjectByType<FinalizarDemo>();
                     animator.SetTrigger("AbrirCofre");
                     Destroy(chave, 2f);
-                    _porta.hasKey = true;
+                    _porta.hasKey = false;
                     _porta.AtivarDestaque();
-                
                 }
                 else
                 {

@@ -34,7 +34,7 @@ public class Porta : MonoBehaviour, INterfaceInteractor
 
     public bool Interact(Interactor interactor)
     {
-        if (hasKey)
+        if (hasKey == false)
         {
             Debug.Log("Abriu a porta");
             _finalizarDemo.ShowEndScreen();
