@@ -10,12 +10,24 @@ public class PuzzleLetter : MonoBehaviour
     private GameObject selectedObject;
     public float scrollSpeed; //setar a velocidade com que a foto gira
     public bool puzzleAtivado = false; // bool para ativar e desativar o codigo
+    public static int quantidadeTotalCartas = 1;
+    public static int quantidadeAtualCartas = 0;
 
-    // var para as cartas aparecerem
-    // public float delayEntreObjetos = 0.3f;
-    // public GameObject[] objetosParaAparecer;
+    // variaveis para o destque da mesa:
+    [SerializeField] private GameObject objetoParaDestacar;
+    private Color corDestaque = Color.yellow;
+    private static Renderer rendererDoObjeto;
+    public static bool destaqueFeito = false;
+    private static Color corOriginal;
 
-
+    private void Start()
+    {
+        if (objetoParaDestacar != null && rendererDoObjeto == null)
+        {
+            rendererDoObjeto = objetoParaDestacar.GetComponent<Renderer>();
+            corOriginal = rendererDoObjeto.material.color;
+        }
+    }
     private void Awake()
     {
         controls = new PlayerControls();
@@ -33,24 +45,7 @@ public class PuzzleLetter : MonoBehaviour
         controls.Letter.Disable();
     }
 
-    /* void Start()
-    {
-        
-        foreach (GameObject obj in objetosParaAparecer)
-        {
-            obj.SetActive(false);
-        }
-     }
-         //isso revela as cartas que estavam escondidas
-    public IEnumerator AparecerObjetosComDelay()
-    {
-        foreach (GameObject obj in objetosParaAparecer)
-        {
-            obj.SetActive(true);
-            yield return new WaitForSeconds(delayEntreObjetos);
-        }
-    }
-    */
+
 
     //raycast
     private void OnClick(InputAction.CallbackContext context)
@@ -69,9 +64,11 @@ public class PuzzleLetter : MonoBehaviour
         }
     }
 
-    // aqui para mover o objeto
+ 
     void Update()
     {
+
+        //Código de controle dentro do puzzle
         if (!puzzleAtivado) return;
 
         if (selectedObject != null)
@@ -97,10 +94,30 @@ public class PuzzleLetter : MonoBehaviour
 
             if (girarInput != 0f)
             {
-            selectedObject.transform.Rotate(Vector3.up, girarInput * scrollSpeed * Time.deltaTime, Space.World);
+                selectedObject.transform.Rotate(Vector3.up, girarInput * scrollSpeed * Time.deltaTime, Space.World);
             }
 
         }
 
     }
+    //Destaque e dialogo
+
+    public void AdicionarDestaque()
+    {
+        Renderer r = objetoParaDestacar.GetComponent<Renderer>();
+        r.material.color = corDestaque;
+        destaqueFeito = true;
+    }
+
+
+    public static void RemoverDestaque()
+    {
+        if (rendererDoObjeto != null)
+        {
+            rendererDoObjeto.material.color = corOriginal;
+            destaqueFeito = false;
+        }
+    }
+
+
 }

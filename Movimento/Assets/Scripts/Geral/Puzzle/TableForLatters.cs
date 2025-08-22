@@ -27,15 +27,14 @@ public class TableForLatters : MonoBehaviour, INterfaceInteractor
         if (puzzleLetter.puzzleAtivado == false)
         {
 
-            if (Letters.quantidadeAtualCartas < Letters.quantidadeTotalCartas)
+            if (PuzzleLetter.quantidadeAtualCartas < PuzzleLetter.quantidadeTotalCartas)
             {
                 Debug.Log("Ainda falta alguma coisa"); //Provavelmente colcocar algo visual para indicar isso
             }
             else
             {
-                //_accentColor.ReturnOriginialColor();
                 StartCoroutine(AparecerObjetosComDelay());
-                Letters.RemoverDestaque();
+                PuzzleLetter.RemoverDestaque();
                 CameraPuzzle cameraPuzzle = GetComponent<CameraPuzzle>();
                 cameraPuzzle.IniciarPuzzle(interactor);
                 puzzleLetter.puzzleAtivado = true;

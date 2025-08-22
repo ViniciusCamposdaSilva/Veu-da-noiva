@@ -2,45 +2,25 @@ using UnityEngine;
 
 public class Letters : MonoBehaviour
 {
-    //variaveis para o controle de cartas totais e atuais
-    public static int quantidadeTotalCartas = 8;
-    public static int quantidadeAtualCartas = 0;
+    PuzzleLetter puzzleLetter;
+    DialogueSystem dialogueSystem;
 
-    // variaveis para o destque da mesa:
-    [SerializeField] private GameObject objetoParaDestacar;
-    private Color corDestaque = Color.yellow;
-    private static Renderer rendererDoObjeto;
-    private static bool destaqueFeito = false;
-    private static Color corOriginal;
-
-    private void Start()
+    private void Awake()
     {
-        if (objetoParaDestacar != null && rendererDoObjeto == null)
-        {
-            rendererDoObjeto = objetoParaDestacar.GetComponent<Renderer>();
-            corOriginal = rendererDoObjeto.material.color;
-        }
+        puzzleLetter = Object.FindFirstObjectByType<PuzzleLetter>();
+        dialogueSystem = Object.FindFirstObjectByType<DialogueSystem>();
     }
-
     private void OnDestroy()
     {
-        quantidadeAtualCartas++;
+        PuzzleLetter.quantidadeAtualCartas++;
         Debug.Log("Pegou uma carta");
 
-        if (quantidadeAtualCartas >= quantidadeTotalCartas && !destaqueFeito)
+        if (PuzzleLetter.quantidadeAtualCartas >= PuzzleLetter.quantidadeTotalCartas)
         {
             Debug.Log("Todas as cartas foram obtidas");
-            Renderer r = objetoParaDestacar.GetComponent<Renderer>();
-            r.material.color = corDestaque;
-            destaqueFeito = true;
+            puzzleLetter.AdicionarDestaque();
+            dialogueSystem.ShowDialogue("Acho que já peguei todos esses pedaços, só preciso de uma mesa para organizá-los", 3);
         }
     }
-    public static void RemoverDestaque()
-    {
-        if (rendererDoObjeto != null)
-        {
-            rendererDoObjeto.material.color = corOriginal;
-            destaqueFeito = false;
-        }
-    }
+
 }
