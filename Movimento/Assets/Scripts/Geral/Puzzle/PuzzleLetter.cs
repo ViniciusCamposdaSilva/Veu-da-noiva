@@ -10,7 +10,7 @@ public class PuzzleLetter : MonoBehaviour
     private GameObject selectedObject;
     public float scrollSpeed; //setar a velocidade com que a foto gira
     public bool puzzleAtivado = false; // bool para ativar e desativar o codigo
-    public static int quantidadeTotalCartas = 1;
+    public static int quantidadeTotalCartas = 8;
     public static int quantidadeAtualCartas = 0;
 
     // variaveis para o destque da mesa:
