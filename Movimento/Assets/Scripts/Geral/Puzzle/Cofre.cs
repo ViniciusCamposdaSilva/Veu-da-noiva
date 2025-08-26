@@ -110,7 +110,7 @@ public class Cofre : MonoBehaviour, INterfaceInteractor
                     FinalizarDemo final = FindAnyObjectByType<FinalizarDemo>();
                     animator.SetTrigger("AbrirCofre");
                     Destroy(chave, 2f);
-                    _porta.hasKey = false;
+                    _porta.hasKey = true;
                     _porta.AtivarDestaque();
                 }
                 else

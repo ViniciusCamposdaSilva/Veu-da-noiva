@@ -16,8 +16,13 @@ public class Porta : MonoBehaviour, INterfaceInteractor
     // Variável para chamar a tela final
     [SerializeField] private FinalizarDemo _finalizarDemo;
 
+    //Var para o som
+    [SerializeField] AudioSource audioSourcePortaAbrindo;
+
     private void Start()
     {
+
+        hasKey = false;
         if (objetoParaDestacar != null && rendererDoObjeto == null)
         {
             rendererDoObjeto = objetoParaDestacar.GetComponent<Renderer>();
@@ -34,10 +39,12 @@ public class Porta : MonoBehaviour, INterfaceInteractor
 
     public bool Interact(Interactor interactor)
     {
-        if (hasKey == false)
+        if (hasKey == true)
         {
+            audioSourcePortaAbrindo.Play();
             Debug.Log("Abriu a porta");
-            _finalizarDemo.ShowEndScreen();
+
+            //_finalizarDemo.ShowEndScreen();
         }
         else
         {

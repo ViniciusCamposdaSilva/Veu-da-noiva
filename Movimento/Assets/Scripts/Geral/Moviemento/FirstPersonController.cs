@@ -91,11 +91,6 @@ public class FirstPersonController : MonoBehaviour
     public void SetControl(bool ativado)
     {
         _canMove = ativado;
-        if (walkAudioSource.isPlaying && !ativado)
-        {
-            walkAudioSource.Stop();
-        }
-
     }
     void Update()
     {
@@ -118,28 +113,29 @@ public class FirstPersonController : MonoBehaviour
     }
 
     private void HandleMovement()
-{
-    moveInput = moveAction.ReadValue<Vector2>();
-    Vector3 move = (transform.right * moveInput.x + transform.forward * moveInput.y) * walkSpeed;
-    controller.Move(move * Time.deltaTime);
-
-    bool isMoving = moveInput != Vector2.zero;
-
-    if (isGrounded && isMoving)
     {
-        if (!walkAudioSource.isPlaying)
+        moveInput = moveAction.ReadValue<Vector2>();
+        Vector3 move = (transform.right * moveInput.x + transform.forward * moveInput.y) * walkSpeed;
+        controller.Move(move * Time.deltaTime);
+
+        bool isMoving = moveInput != Vector2.zero;
+
+        if (isGrounded && isMoving)
         {
-            walkAudioSource.Play();
+            if (!walkAudioSource.isPlaying)
+            {
+                walkAudioSource.Play();
+            }
+
+        }
+        else
+        {
+            if (walkAudioSource.isPlaying && !isMoving)
+            {
+                walkAudioSource.Stop();
+            }
         }
     }
-    else
-    {
-        if (walkAudioSource.isPlaying)
-        {
-            walkAudioSource.Stop();
-        }
-    }
-}
 
 
     private void HandleCameraRotation()
