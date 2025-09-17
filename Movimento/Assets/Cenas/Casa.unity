@@ -366,6 +366,74 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 3, z: 0.16000001}
   m_Center: {x: 0, y: 1.5, z: -0.000000029802322}
+--- !u!1 &33642353
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 33642355}
+  - component: {fileID: 33642354}
+  - component: {fileID: 33642356}
+  m_Layer: 5
+  m_Name: Placa de comandos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &33642354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 33642353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: 2672cdbe4c7a7aa4dad8a8be6b7b13d3, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 5c0e9fbcf6851b745865eb7ae57df7e6, type: 3}
+  m_SortingOrder: 0
+  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceWidth: 1920
+  m_WorldSpaceHeight: 1080
+--- !u!4 &33642355
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 33642353}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &33642356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 33642353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b06bd53d52265eb40bbcbae475383825, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _promptText: {fileID: 0}
+  _uiPannel: {fileID: 0}
+  UIDocument: {fileID: 33642354}
+  IsDisplayed: 0
 --- !u!1001 &50264796
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5689,6 +5757,7 @@ GameObject:
   m_Component:
   - component: {fileID: 565184173}
   - component: {fileID: 565184172}
+  - component: {fileID: 565184174}
   m_Layer: 0
   m_Name: Dialogo
   m_TagString: Untagged
@@ -5730,6 +5799,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &565184174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 565184171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a80c1f4a5877c8246bbff330cfeece6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiDocument: {fileID: 565184172}
 --- !u!1001 &574002786
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6469,7 +6551,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e31b18402a3b53c43a1cb566cedcbd54, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.76224905
+      value: -0.872
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e31b18402a3b53c43a1cb566cedcbd54, type: 3}
       propertyPath: m_LocalPosition.z
@@ -19859,6 +19941,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _promptText: {fileID: 446858207}
   _uiPannel: {fileID: 1966479389}
+  UIDocument: {fileID: 0}
   IsDisplayed: 0
 --- !u!114 &2104605792
 MonoBehaviour:
@@ -20441,3 +20524,4 @@ SceneRoots:
   - {fileID: 906132977}
   - {fileID: 1866536159}
   - {fileID: 565184173}
+  - {fileID: 33642355}

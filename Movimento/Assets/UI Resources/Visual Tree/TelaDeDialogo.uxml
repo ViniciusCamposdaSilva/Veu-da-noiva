@@ -1,5 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
-    <ui:VisualElement name="dialogue-panel" style="flex-direction: column; padding: 10px; background-color: rgba(0, 0, 0, 0.8); font-size: 20px; top: 420px;">
-        <ui:Label name="dialogue-text" style="color: white; font-size: 16px; -unity-text-align: upper-center; white-space: normal;" />
+    <Style src="project://database/Assets/UI%20Resources/StyleSheets/UiStyle.uss?fileID=7433441132597879392&amp;guid=5230c934f2e26594593163bb4abf8037&amp;type=3#UiStyle" />
+    <ui:VisualElement name="dialogue-panel" class="dialogue-panel" style="flex-direction: column; padding: 10px; background-color: rgba(0, 0, 0, 0.8); font-size: 20px; top: 420px;">
+        <ui:Label name="dialogue-text" class="dialogue-text" />
     </ui:VisualElement>
 </ui:UXML>

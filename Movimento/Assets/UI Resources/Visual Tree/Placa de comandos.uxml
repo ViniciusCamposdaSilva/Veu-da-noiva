@@ -1,0 +1,6 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Resources/StyleSheets/UiStyle.uss?fileID=7433441132597879392&amp;guid=5230c934f2e26594593163bb4abf8037&amp;type=3#UiStyle" />
+    <ui:VisualElement name="painel-comandos" class="dialogue-panel dialogue-text command-panel" style="background-color: rgba(0, 0, 0, 0.71); border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; margin-top: -25px; top: 390px; width: 47px; align-self: flex-end; margin-right: 30px;">
+        <ui:Label name="command-label" emoji-fallback-support="false" enable-rich-text="false" class="dialogue-text" style="-unity-background-image-tint-color: rgb(0, 0, 0); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; border-top-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; border-bottom-left-radius: 0; font-size: 30px;" />
+    </ui:VisualElement>
+</ui:UXML>
