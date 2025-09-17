@@ -19,7 +19,7 @@ public class Letters : MonoBehaviour
         {
             Debug.Log("Todas as cartas foram obtidas");
             puzzleLetter.AdicionarDestaque();
-            dialogueSystem.ShowDialogue("Acho que já peguei todos esses pedaços, só preciso de uma mesa para organizá-los", 3);
+            dialogueSystem.ShowDialogue("Já devo ter pego todos esse pedaçoes de papel, agora só preciso de algum lugar para lê isso, parece uma carta...", 7);
         }
     }
 

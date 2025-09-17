@@ -43,8 +43,7 @@ public class Porta : MonoBehaviour, INterfaceInteractor
         {
             audioSourcePortaAbrindo.Play();
             Debug.Log("Abriu a porta");
-
-            //_finalizarDemo.ShowEndScreen();
+            _finalizarDemo.ShowEndScreen();
         }
         else
         {

@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="IndicadorControle-panel" style="flex-direction: column; padding: 10px; background-color: rgba(0, 0, 0, 0.8); bottom: 0; font-size: 20px; top: 302px; width: 116px; right: -251px; align-items: stretch; height: 54px; left: 0; align-self: flex-end;">
+        <ui:Label name="IndicadorControle-text" text="Texto de exemplo" style="color: white; font-size: 13px; align-items: auto; justify-content: space-around; align-self: auto; align-content: auto;" />
+    </ui:VisualElement>
+</ui:UXML>

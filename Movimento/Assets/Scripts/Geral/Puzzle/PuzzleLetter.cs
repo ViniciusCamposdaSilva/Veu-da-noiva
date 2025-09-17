@@ -22,6 +22,8 @@ public class PuzzleLetter : MonoBehaviour
 
     private void Start()
     {
+        quantidadeAtualCartas = 0;
+
         if (objetoParaDestacar != null && rendererDoObjeto == null)
         {
             rendererDoObjeto = objetoParaDestacar.GetComponent<Renderer>();
