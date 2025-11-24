@@ -326,6 +326,34 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Clock"",
+            ""id"": ""e43e3446-175f-49e7-89fc-c0c39caaea0d"",
+            ""actions"": [
+                {
+                    ""name"": ""Select"",
+                    ""type"": ""Button"",
+                    ""id"": ""0e76610e-5146-49fe-a1bf-4a722a86401b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""2c994bdf-4206-4259-987b-b79118ae8b96"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -344,6 +372,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Cofre_RotationRight = m_Cofre.FindAction("RotationRight", throwIfNotFound: true);
         m_Cofre_RotationLeft = m_Cofre.FindAction("RotationLeft", throwIfNotFound: true);
         m_Cofre_CheckNumber = m_Cofre.FindAction("CheckNumber", throwIfNotFound: true);
+        // Clock
+        m_Clock = asset.FindActionMap("Clock", throwIfNotFound: true);
+        m_Clock_Select = m_Clock.FindAction("Select", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
@@ -351,6 +382,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, PlayerControls.Player.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_Letter.enabled, "This will cause a leak and performance issues, PlayerControls.Letter.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_Cofre.enabled, "This will cause a leak and performance issues, PlayerControls.Cofre.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_Clock.enabled, "This will cause a leak and performance issues, PlayerControls.Clock.Disable() has not been called.");
     }
 
     /// <summary>
@@ -765,6 +797,102 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="CofreActions" /> instance referencing this action map.
     /// </summary>
     public CofreActions @Cofre => new CofreActions(this);
+
+    // Clock
+    private readonly InputActionMap m_Clock;
+    private List<IClockActions> m_ClockActionsCallbackInterfaces = new List<IClockActions>();
+    private readonly InputAction m_Clock_Select;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "Clock".
+    /// </summary>
+    public struct ClockActions
+    {
+        private @PlayerControls m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public ClockActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "Clock/Select".
+        /// </summary>
+        public InputAction @Select => m_Wrapper.m_Clock_Select;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_Clock; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="ClockActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(ClockActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="ClockActions" />
+        public void AddCallbacks(IClockActions instance)
+        {
+            if (instance == null || m_Wrapper.m_ClockActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_ClockActionsCallbackInterfaces.Add(instance);
+            @Select.started += instance.OnSelect;
+            @Select.performed += instance.OnSelect;
+            @Select.canceled += instance.OnSelect;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="ClockActions" />
+        private void UnregisterCallbacks(IClockActions instance)
+        {
+            @Select.started -= instance.OnSelect;
+            @Select.performed -= instance.OnSelect;
+            @Select.canceled -= instance.OnSelect;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="ClockActions.UnregisterCallbacks(IClockActions)" />.
+        /// </summary>
+        /// <seealso cref="ClockActions.UnregisterCallbacks(IClockActions)" />
+        public void RemoveCallbacks(IClockActions instance)
+        {
+            if (m_Wrapper.m_ClockActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="ClockActions.AddCallbacks(IClockActions)" />
+        /// <seealso cref="ClockActions.RemoveCallbacks(IClockActions)" />
+        /// <seealso cref="ClockActions.UnregisterCallbacks(IClockActions)" />
+        public void SetCallbacks(IClockActions instance)
+        {
+            foreach (var item in m_Wrapper.m_ClockActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_ClockActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="ClockActions" /> instance referencing this action map.
+    /// </summary>
+    public ClockActions @Clock => new ClockActions(this);
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Player" which allows adding and removing callbacks.
     /// </summary>
@@ -844,5 +972,20 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnCheckNumber(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Clock" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="ClockActions.AddCallbacks(IClockActions)" />
+    /// <seealso cref="ClockActions.RemoveCallbacks(IClockActions)" />
+    public interface IClockActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "Select" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSelect(InputAction.CallbackContext context);
     }
 }

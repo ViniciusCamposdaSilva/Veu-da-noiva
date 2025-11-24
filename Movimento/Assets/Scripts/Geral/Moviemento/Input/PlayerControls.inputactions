@@ -1,4 +1,5 @@
 {
+    "version": 1,
     "name": "PlayerControls",
     "maps": [
         {
@@ -235,6 +236,34 @@
                     "processors": "",
                     "groups": "",
                     "action": "RotationLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Clock",
+            "id": "e43e3446-175f-49e7-89fc-c0c39caaea0d",
+            "actions": [
+                {
+                    "name": "Select",
+                    "type": "Button",
+                    "id": "0e76610e-5146-49fe-a1bf-4a722a86401b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "2c994bdf-4206-4259-987b-b79118ae8b96",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
