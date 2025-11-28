@@ -8,7 +8,7 @@ public class TableForLatters : MonoBehaviour, INterfaceInteractor
     [SerializeField] private string _prompt;
     public string InteractionPrompt => _prompt;
     public PuzzleLetter puzzleLetter;
-    // private AccentColor _accentColor;
+
     
     //Var para as cartas em cima da mesa aparecerem
     public GameObject[] objetosParaAparecer;
