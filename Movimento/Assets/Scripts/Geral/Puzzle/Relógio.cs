@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class Relógio : MonoBehaviour, INterfaceInteractor
 {
@@ -12,9 +13,13 @@ public class Relógio : MonoBehaviour, INterfaceInteractor
     [SerializeField] public Transform transformMarcadorMin;
     [SerializeField] public Animator animator;
 
+    [SerializeField] private GameObject _chave;
+    [SerializeField] private DialogueSystem dialogueSystem;
+    [SerializeField] private FinalizarDemo _finalizarDemo;
+
     private PlayerControls _controls;
     public Camera SubCamera;
-    private bool _relogioAtivo = false;
+    public bool _relogioAtivo = true;
 
     private bool _selecaoVar = false;
     private bool _selecao
@@ -62,7 +67,7 @@ public class Relógio : MonoBehaviour, INterfaceInteractor
 
         if (_relogioAtivo == false)
         {
-            _controls.Enable();
+            _controls.Clock.Enable();
             _controls.Clock.Select.performed += _ => SelecionarPonteiro();
             CameraPuzzle cameraPuzzle = GetComponent<CameraPuzzle>();
             cameraPuzzle.IniciarPuzzle(interactor);
@@ -151,9 +156,24 @@ public class Relógio : MonoBehaviour, INterfaceInteractor
 
         if (horaCorreta && minutoCorreto)
         {
-            Debug.Log("Puzzle completo! Hora e minuto corretos!");
-            animator.SetTrigger("RelogioTocando");
+            StartCoroutine(FinalizarDemo());
         }
-    } 
+    }       
+
+    public IEnumerator FinalizarDemo()
+    {
+        animator.SetTrigger("PuzzleCompletado");
+        yield return new WaitForSeconds(2.5f);
+        dialogueSystem.ShowDialogue("Outra chave?", 2);
+        yield return new WaitForSeconds(2.0f);
+        dialogueSystem.ShowDialogue("Como que eu nunca tinha visto ela antes?", 3.0f);
+        yield return new WaitForSeconds(3.5f);
+        Destroy(_chave, 1.0f);
+        yield return new WaitForSeconds(0.5f);
+        animator.SetTrigger("FinalizarRelogio");
+        yield return new WaitForSeconds(3.0f);
+        _finalizarDemo.ShowEndScreen();
+    }
+
 
 }

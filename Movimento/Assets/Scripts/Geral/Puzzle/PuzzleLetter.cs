@@ -76,7 +76,7 @@ public class PuzzleLetter : MonoBehaviour
         if (selectedObject != null)
         {
             Ray ray = SubCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
-            Plane plane = new Plane(Vector3.up, selectedObject.transform.position); // isso faz o y ser fixo pro objeto
+            Plane plane = new Plane(Vector3.up, selectedObject.transform.position);
             if (plane.Raycast(ray, out float distance))
             {
                 Vector3 mouseWorldPosition = ray.GetPoint(distance);

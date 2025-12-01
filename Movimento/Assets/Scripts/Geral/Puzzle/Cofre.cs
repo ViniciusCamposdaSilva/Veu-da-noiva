@@ -5,6 +5,8 @@ public class Cofre : MonoBehaviour, INterfaceInteractor
     [SerializeField] private string _prompt;
     public string InteractionPrompt => _prompt;
 
+    Relógio relógio;
+
     // Var de animação
     private Animator animator;
 
@@ -14,6 +16,8 @@ public class Cofre : MonoBehaviour, INterfaceInteractor
     PlayerControls controls;
     [SerializeField] GameObject ponteiroCofre;
     private bool _cofreAtivo = false;
+
+    [SerializeField] GameObject _porta;
 
 
 
@@ -64,7 +68,6 @@ public class Cofre : MonoBehaviour, INterfaceInteractor
     private int _numeroTentado;
     private int _managerPassword = 1;
     [SerializeField] private GameObject chave;
-    [SerializeField]private Porta _porta;
 
     void Start()
     {
@@ -110,8 +113,9 @@ public class Cofre : MonoBehaviour, INterfaceInteractor
                     FinalizarDemo final = FindAnyObjectByType<FinalizarDemo>();
                     animator.SetTrigger("AbrirCofre");
                     Destroy(chave, 2f);
-                    _porta.hasKey = true;
-                    _porta.AtivarDestaque();
+                    Destroy(_porta);
+                    relógio._relogioAtivo = false;
+
                 }
                 else
                 {
