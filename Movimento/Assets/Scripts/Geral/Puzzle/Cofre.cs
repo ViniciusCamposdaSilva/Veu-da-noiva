@@ -5,8 +5,6 @@ public class Cofre : MonoBehaviour, INterfaceInteractor
     [SerializeField] private string _prompt;
     public string InteractionPrompt => _prompt;
 
-    Relógio relógio;
-
     // Var de animação
     private Animator animator;
 
@@ -17,7 +15,8 @@ public class Cofre : MonoBehaviour, INterfaceInteractor
     [SerializeField] GameObject ponteiroCofre;
     private bool _cofreAtivo = false;
 
-    [SerializeField] GameObject _porta;
+    [SerializeField] Porta _porta;
+
 
 
 
@@ -26,6 +25,7 @@ public class Cofre : MonoBehaviour, INterfaceInteractor
     {
             if (!_cofreAtivo)
             {
+                Debug.Log("Entrou no puzzle");
                 controls = new PlayerControls();
                 controls.Cofre.RotationRight.performed += _ => Rotate(rotationValue);
                 controls.Cofre.RotationLeft.performed += _ => Rotate(-rotationValue);
@@ -39,6 +39,7 @@ public class Cofre : MonoBehaviour, INterfaceInteractor
             }
             else
             {
+                Debug.Log("Era para sair do puzzle");
                 CameraPuzzle cameraPuzzle = GetComponent<CameraPuzzle>();
                 cameraPuzzle.ParaPuzzle(interactor);
                 _cofreAtivo = false;
@@ -75,7 +76,12 @@ public class Cofre : MonoBehaviour, INterfaceInteractor
     }
 
     void ChecarNumeroAtual()
-{
+    {
+    if (ponteiroCofre == null) Debug.LogError("ponteiroCofre está NULO!");
+    if (animator == null) Debug.LogError("animator está NULO!");
+    if (chave == null) Debug.LogError("chave está NULA!");
+    if (_porta == null) Debug.LogError("_porta está NULO!");
+    
     int numeroAtual = Mathf.RoundToInt(currentRotation / 36f) % 10;
     float zRotation = ponteiroCofre.transform.localEulerAngles.z;
     int numero = Mathf.RoundToInt((360f - currentRotation) / 36f) % 10;
@@ -110,11 +116,11 @@ public class Cofre : MonoBehaviour, INterfaceInteractor
                 if (_numeroTentado == _password3)
                 {
                     Debug.Log("O cofre abriu");
-                    FinalizarDemo final = FindAnyObjectByType<FinalizarDemo>();
                     animator.SetTrigger("AbrirCofre");
                     Destroy(chave, 2f);
-                    Destroy(_porta);
-                    relógio._relogioAtivo = false;
+                    _porta.hasKey = true;
+                    _cofreAtivo = true;
+
 
                 }
                 else

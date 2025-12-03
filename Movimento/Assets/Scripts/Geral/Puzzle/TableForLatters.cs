@@ -38,8 +38,6 @@ public class TableForLatters : MonoBehaviour, INterfaceInteractor
                 CameraPuzzle cameraPuzzle = GetComponent<CameraPuzzle>();
                 cameraPuzzle.IniciarPuzzle(interactor);
                 puzzleLetter.puzzleAtivado = true;
-
-
             }
         }
         else

@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Cenas/Casa.unity
     guid: 2361db0f866df074fbe0247d942a0812
+  - enabled: 1
+    path: Assets/Cenas/Final Menu.unity
+    guid: ed1d105f4026fff42b164da886b0a272
   - enabled: 0
     path: Assets/Cenas/CenaDeTestes.unity
     guid: 99c9720ab356a0642a771bea13969a05

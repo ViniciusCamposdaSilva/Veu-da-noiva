@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
-public class Relógio : MonoBehaviour, INterfaceInteractor
+public class Relogio : MonoBehaviour, INterfaceInteractor
 {
     [SerializeField] private string _prompt;
     public string InteractionPrompt => _prompt;
@@ -19,7 +20,9 @@ public class Relógio : MonoBehaviour, INterfaceInteractor
 
     private PlayerControls _controls;
     public Camera SubCamera;
-    public bool _relogioAtivo = true;
+    public bool relogioAtivo = false;
+
+    private bool puzzleFinalizado = false;
 
     private bool _selecaoVar = false;
     private bool _selecao
@@ -63,28 +66,35 @@ public class Relógio : MonoBehaviour, INterfaceInteractor
 
     public bool Interact(Interactor interactor)
     {
-        _controls = new PlayerControls();
+        if (puzzleFinalizado)
+            return false; 
 
-        if (_relogioAtivo == false)
+        if (relogioAtivo) 
         {
+            _controls = new PlayerControls();
+            Debug.Log("Entrou no puzzle");
             _controls.Clock.Enable();
             _controls.Clock.Select.performed += _ => SelecionarPonteiro();
             CameraPuzzle cameraPuzzle = GetComponent<CameraPuzzle>();
             cameraPuzzle.IniciarPuzzle(interactor);
-            _relogioAtivo = true;
+            relogioAtivo = false; 
         }
         else
         {
+            Debug.Log("Saiu do puzzle");
+            _controls.Clock.Disable();
             CameraPuzzle cameraPuzzle = GetComponent<CameraPuzzle>();
             cameraPuzzle.ParaPuzzle(interactor);
-            _relogioAtivo = false;
-            _controls.Clock.Disable();
+            relogioAtivo = true; 
         }
         return true;
     }
 
     private void SelecionarPonteiro()
     {
+        if (puzzleFinalizado)
+            return; 
+
         LayerMask puzzleMask = LayerMask.GetMask("Puzzles");
 
         Ray ray = SubCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
@@ -103,7 +113,6 @@ public class Relógio : MonoBehaviour, INterfaceInteractor
                 {
                     _selecao = true;
                     _ponteiroSelecionado = ponteiroRaycast;
-
 
                     anguloInicialDoPonteiro = _ponteiroSelecionado.transform.localEulerAngles;
                 }
@@ -125,7 +134,8 @@ public class Relógio : MonoBehaviour, INterfaceInteractor
 
     void GirarPonteiro()
     {
-        if (_ponteiroSelecionado == null) return;
+        if (_ponteiroSelecionado == null || puzzleFinalizado)
+            return;
 
         Vector2 mousePos = Mouse.current.position.ReadValue();
         Vector2 centerScreenPos = SubCamera.WorldToScreenPoint(_ponteiroSelecionado.transform.position);
@@ -142,14 +152,18 @@ public class Relógio : MonoBehaviour, INterfaceInteractor
         _ponteiroSelecionado.transform.localEulerAngles = novaRot;
     }
 
-     bool EstaColidindo(Transform a, Transform b)
+    bool EstaColidindo(Transform a, Transform b)
     {
         Collider colA = a.GetComponent<Collider>();
         Collider colB = b.GetComponent<Collider>();
         return colA.bounds.Intersects(colB.bounds);
-    } 
+    }
+
     void VerificarPonteiros()
     {
+        if (puzzleFinalizado)
+            return;
+
         Debug.Log("Boa pergunta ai mermão");
         bool horaCorreta = EstaColidindo(transformVerificadorHora, transformMarcadorHora);
         bool minutoCorreto = EstaColidindo(transformVerificadorMin, transformMarcadorMin);
@@ -158,22 +172,28 @@ public class Relógio : MonoBehaviour, INterfaceInteractor
         {
             StartCoroutine(FinalizarDemo());
         }
-    }       
+    }
 
     public IEnumerator FinalizarDemo()
     {
+        puzzleFinalizado = true; 
+
+        _controls.Clock.Disable();
         animator.SetTrigger("PuzzleCompletado");
         yield return new WaitForSeconds(2.5f);
+
         dialogueSystem.ShowDialogue("Outra chave?", 2);
         yield return new WaitForSeconds(2.0f);
+
         dialogueSystem.ShowDialogue("Como que eu nunca tinha visto ela antes?", 3.0f);
         yield return new WaitForSeconds(3.5f);
+
         Destroy(_chave, 1.0f);
         yield return new WaitForSeconds(0.5f);
+
         animator.SetTrigger("FinalizarRelogio");
         yield return new WaitForSeconds(3.0f);
-        _finalizarDemo.ShowEndScreen();
+
+        SceneManager.LoadScene("Final Menu");
     }
-
-
 }

@@ -6,37 +6,31 @@ using UnityEngine.UIElements;
 public class MainMenuEvents : MonoBehaviour
 {
     private UIDocument _document;
-    private Button _button;
+    private Button _buttonStart;
+    private Button _buttonQuit;
+
     private List<Button> _menuButtons = new List<Button>();
 
     private void Awake()
     {
         _document = GetComponent<UIDocument>();
-        _button = _document.rootVisualElement.Q("StartButton") as Button;
-        _button.RegisterCallback<ClickEvent>(OnPlayGameClick);
 
-        _document = GetComponent<UIDocument>();
-        _button = _document.rootVisualElement.Q("OptionsButton") as Button;
-        _button.RegisterCallback<ClickEvent>(OnSettingsClick);
+        _buttonStart = _document.rootVisualElement.Q("StartButton") as Button;
+        _buttonStart.RegisterCallback<ClickEvent>(OnPlayGameClick);
 
-        _document = GetComponent<UIDocument>();
-        _button = _document.rootVisualElement.Q("RToDesktopButton") as Button;
-        _button.RegisterCallback<ClickEvent>(OnRTDClick);
+        _buttonQuit = _document.rootVisualElement.Q("QuitButton") as Button;
+        _buttonQuit.RegisterCallback<ClickEvent>(QuitGame);
 
-        _menuButtons = _document.rootVisualElement.Query<Button>().ToList();
+        /* _menuButtons = _document.rootVisualElement.Query<Button>().ToList();
         for (int i = 0; i < _menuButtons.Count; i++)
         {
             _menuButtons[i].RegisterCallback<ClickEvent>(OnAllButtonClick);
-        }
+        } */
     }
     private void OnDisable()
     {
-        _button.UnregisterCallback<ClickEvent>(OnPlayGameClick);
-
-        for (int i = 0; i < _menuButtons.Count; i++)
-        {
-            _menuButtons[i].UnregisterCallback<ClickEvent>(OnAllButtonClick);
-        }
+        _buttonStart.UnregisterCallback<ClickEvent>(OnPlayGameClick);
+        _buttonQuit.UnregisterCallback<ClickEvent>(QuitGame);
     }
 
     private void OnPlayGameClick(ClickEvent Event)
@@ -44,13 +38,9 @@ public class MainMenuEvents : MonoBehaviour
         SceneManager.LoadScene("Casa");
     }
 
-    private void OnSettingsClick(ClickEvent Event)
+    private void QuitGame(ClickEvent Event)
     {
-        Debug.Log("Foi para as configura��es");
-    }
-
-    private void OnRTDClick(ClickEvent Event)
-    {
+        Debug.Log("Era para sair do jogo");
         Application.Quit();
     }
 
